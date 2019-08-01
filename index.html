@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
 
+    <link rel="stylesheet" href="assets/css/bootstrap-datetimepicker.css">
+
     <title>Hello, world!</title>
   </head>
   <body>
@@ -52,38 +54,36 @@
           <!-- <a href="" class="float-right btn btn-outline-primary mt-1">Log in</a> -->
           <h4 class="card-title mt-2 text-center">Registation form</h4>
         </header>
-        <article class="card-body">
+        <article class="card-body" id="registation_page">
 
-          <form>
+          <form method="post" enctype="multipart/form-data" id="modelForm" data="" act="insert">
             <div class="form-row">
               <div class="form-group col">
-                <label for="inputState">Class</label>
-                <select id="inputState" class="form-control">
-                  <option selected>Choose...</option>
-                  <option>...</option>
+                <label for="class">Class</label>
+                <select id="class" class="form-control">
+                  <option value="">Class..</option>
                 </select>
               </div>
               <div class="form-group col">
-                <label for="inputState1">Subject</label>
-                <select id="inputState1" class="form-control">
-                  <option selected>Choose...</option>
-                  <option>...</option>
+                <label for="subject">Subject</label>
+                <select id="subject" class="form-control">
+                  <option value="">Subject..</option>
                 </select>
               </div>
               <div class="col form-group">
                 <label>Roll/ID </label>   
-                <input type="text" class="form-control" placeholder="">
+                <input type="text" class="form-control" id="roll" placeholder="" value="">
               </div> <!-- form-group end.// -->
             </div> <!-- form-row end.// -->
 
              <div class="form-row">
               <div class="col form-group">
                 <label for="name">Student name </label>   
-                <input type="text" class="form-control" id="name" placeholder="">
+                <input type="text" class="form-control" id="name" placeholder="" value="">
               </div> <!-- form-group end.// -->
               <div class="col form-group">
                 <label for="birthDay">Date of Birth</label>   
-                <input type="date" class="form-control datepicker hasDatepicker" id="birthDay" placeholder="0/01/1996">
+                <input type="text" class="form-control datepicker hasDatepicker" id="birthDay" placeholder="0/01/1996" value="">
               </div> <!-- form-group end.// -->
               
               <div class="col form-group">
@@ -92,12 +92,12 @@
 
                 <div class="col">
                 <div class="custom-control custom-radio custom-control-inline">
-                  <input type="radio" id="customRadioInline1" name="customRadioInline1" class="custom-control-input">
-                  <label class="custom-control-label" for="customRadioInline1">Male</label>
+                  <input type="radio" id="Male" name="gender" class="custom-control-input" value="Male">
+                  <label class="custom-control-label" for="Male">Male</label>
                 </div>
                 <div class="custom-control custom-radio custom-control-inline">
-                  <input type="radio" id="customRadioInline2" name="customRadioInline1" class="custom-control-input">
-                  <label class="custom-control-label" for="customRadioInline2">Female</label>
+                  <input type="radio" id="Female" name="gender" class="custom-control-input" value="Female">
+                  <label class="custom-control-label" for="Female">Female</label>
                 </div></div>
               </div> <!-- form-group end.// -->
             </div> <!-- form-row end.// -->
@@ -105,11 +105,11 @@
             <div class="form-row">
               <div class="col form-group">
                 <label for="phone">Phone</label>
-                <input type="text" class="form-control" id="phone" placeholder="">
+                <input type="text" class="form-control" id="phone" placeholder="" value="">
               </div> <!-- form-group end.// -->
               <div class="col form-group">
                 <label for="email">Email</label>
-                <input type="email" class="form-control" id="email" placeholder="">
+                <input type="email" class="form-control" id="email" placeholder="" value="">
               </div> <!-- form-group end.// -->
             </div>
 
@@ -117,12 +117,7 @@
               <div class="col-md-6 form-group">
                 <label for="city">City</label>
                   <select id="city" class="form-control">
-                    <option> Choose...</option>
-                    <option>Uzbekistan</option>
-                    <option>Russia</option>
-                    <option selected="">United States</option>
-                    <option>India</option>
-                    <option>Afganistan</option>
+                    <option value="" selected >City</option>
                 </select>
               </div> <!-- form-group end.// -->
               <div class="col form-group">
@@ -131,30 +126,37 @@
               </div> <!-- form-group end.// -->
             </div>
 
-              <div class="form-group">
-    <label for="exampleFormControlFile1">Photo upload</label>
-    <input type="file" class="form-control-file" id="exampleFormControlFile1">
-  </div>
-
-
+            <div class="form-row">
+              <div class="col form-group">
+                <label for="image">Photo upload</label>
+                <input type="file" class="form-control-file" id="image">
+              </div>
+              <div class="col">
+                <div id='outputImage'></div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class='progress' id="progressDivId">
+                <div class='progress-bar' id='progressBar'></div>
+                <div class='percent' id='percent'>0%</div>
+              </div>
+            </div>
 
 <!--             <div class="form-group">
-              <label class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="gender" value="option1">
-                <span class="form-check-label"> Male </span>
-              </label>
-              <label class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="gender" value="option2">
-                <span class="form-check-label"> Female</span>
-              </label>
-            </div>--> 
+              <button type="button" class="btn btn-primary btn-block" id="submitButton"> Register  </button>
+            </div>  
+            <small class="text-muted">By clicking the 'Sign Up' button, you confirm that you accept our <br> Terms of use and Privacy Policy.</small>   -->
 
-
-            <div class="form-group">
-              <button type="submit" class="btn btn-primary btn-block"> Register  </button>
-            </div> <!-- form-group// -->      
-            <small class="text-muted">By clicking the 'Sign Up' button, you confirm that you accept our <br> Terms of use and Privacy Policy.</small>                                          
+            <button type="button" id="submitButton" class="btn btn-primary">Update</button>                                        
           </form>
+
+
+
+
+
+
+
+
         </article> <!-- card-body end .// -->
         <div class="border-top card-body text-center">Have an account? <a href="">Log In</a></div>
       </div> <!-- card.// -->
@@ -167,9 +169,14 @@
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+
+<script src="assets/js/bootstrap-datetimepicker.js"></script>
+
+    <script src="assets/js/main.js"></script>
 
 
 

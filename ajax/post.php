@@ -1,6 +1,6 @@
 <?php
 include "../core/connect.php";
-$sql = "SELECT f_name, l_name FROM student";
+$sql = "SELECT * FROM student";
 
 
 
@@ -14,22 +14,25 @@ if ($result->num_rows > 0) {
         $th=$title->name;
         if ($th=='id') continue;
         $names[]=array($th);
+        
     }    
+    $names[]=array('Action');
 
     // output data of each row
     $data = array();
     while($row = $result->fetch_assoc()) {
         $temp = array();
         foreach ($row as $key => $value) {
+            if ($key=='id') continue;
           $temp[] = $value;
+          
       }
+      $temp[] = '<div id="showModal" val="'.$row["id"].'"><i class="fa fa-lg fa-eye" aria-hidden="true"></i></div>';
+      // $temp[] = '<a href="?view=1" id="showModal" val="'.$row["id"].'"><i class="fa fa-lg fa-eye" aria-hidden="true"></i></a>';
       $data[] = $temp;
   }
 
   echo '{
-    "draw": 1,
-    "recordsTotal": 57,
-    "recordsFiltered": 57,
     "columns":';
     print json_encode($names);
     echo ',"data":';
