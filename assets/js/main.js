@@ -23,13 +23,11 @@ $( document ).ready( function( $ ) {
     subject_list($('#class').val(), $('#subject'));
     class_list($('#class').val(), $('#class'));
     city_list($('#city').val(), $('#city'));
+    $('input.datepicker').Zebra_DatePicker({
+      show_icon: false,
+      format: 'd-m-Y'
+    });
   }
-
-$('#birthDay').datetimepicker({
-        format: 'yyyy-mm-dd',
-        fontAwesome: true,
-        wheelViewModeNavigation: true
-      })
 
   $(document).on("click", '#showModal', function(event) { 
     const userid = $(this).attr("val");
@@ -46,6 +44,11 @@ $('#birthDay').datetimepicker({
             subject_list($('#class').val(), $('#subject'));
             class_list($('#class').val(), $('#class'));
             city_list($('#city').val(), $('#city'));
+
+            $('input.datepicker').Zebra_DatePicker({
+              show_icon: false,
+              format: 'd-m-Y'
+            });
 
             // Display Modal
             $('#studentModel').modal('show'); 

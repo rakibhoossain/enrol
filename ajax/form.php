@@ -77,7 +77,7 @@ $conn->close();
               </div> <!-- form-group end.// -->
               <div class="col form-group">
                 <label for="birthDay">Date of Birth</label>   
-                <input type="text" class="form-control datepicker hasDatepicker" id="birthDay" placeholder="0/01/1996" value="<?php echo $b_date; ?>">
+                <input type="text" class="form-control datepicker hasDatepicker" id="birthDay" placeholder="" value="<?php echo $b_date; ?>">
               </div> <!-- form-group end.// -->
               
               <div class="col form-group">

@@ -1,50 +1,4 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
-
-    <link rel="stylesheet" href="assets/css/bootstrap-datetimepicker.css">
-
-    <title>Hello, world!</title>
-  </head>
-  <body>
-
-<!-- Navigation -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
-  <div class="container">
-    <a class="navbar-brand" href="#">
-          <img src="http://placehold.it/150x50?text=Logo" alt="">
-        </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-    <div class="collapse navbar-collapse" id="navbarResponsive">
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="#">Home
-                <span class="sr-only">(current)</span>
-              </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">About</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Services</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Contact</a>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
-
+<?php require_once('header.php'); ?>
 
 <div class="container">
   <div class="row justify-content-center">
@@ -83,7 +37,7 @@
               </div> <!-- form-group end.// -->
               <div class="col form-group">
                 <label for="birthDay">Date of Birth</label>   
-                <input type="text" class="form-control datepicker hasDatepicker" id="birthDay" placeholder="0/01/1996" value="">
+                <input type="text" class="form-control datepicker hasDatepicker" id="birthDay" placeholder="01-12-1996" value="">
               </div> <!-- form-group end.// -->
               
               <div class="col form-group">
@@ -167,30 +121,4 @@
 </div> 
 
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-
-
-<script src="assets/js/bootstrap-datetimepicker.js"></script>
-
-    <script src="assets/js/main.js"></script>
-
-
-
-<!-- <script type="text/javascript">
-  $(document).ready(function(){
-
-   $(".datepicker").datepicker({
-      changeMonth: true,
-      changeYear: true
-    });
-
-});
-</script> -->
-
-
-  </body>
-</html>
+<?php require_once('footer.php'); ?>
