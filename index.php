@@ -1,14 +1,20 @@
 <?php require_once('header.php'); ?>
 
 <div class="container">
-  <div class="row justify-content-center">
-    <div class="col-md-8">
-      <div class="card">
-        <header class="card-header">
+  <div class="row">
+
+       <header class="col-12">
           <!-- <a href="" class="float-right btn btn-outline-primary mt-1">Log in</a> -->
           <h4 class="card-title mt-2 text-center">Registation form</h4>
         </header>
-        <article class="card-body" id="registation_page">
+    <div class="col-md-4">
+      <div class="banner">
+        <img src="assets/images/banner.png">
+      </div>
+    </div>
+    <div class="col-md-8">
+
+        <article id="registation_page">
 
           <form method="post" enctype="multipart/form-data" id="modelForm" data="" act="insert">
             <div class="form-row">
@@ -82,27 +88,13 @@
 
             <div class="form-row">
               <div class="col form-group">
-                <label for="image">Photo upload</label>
-                <input type="file" class="form-control-file" id="image">
-              </div>
-              <div class="col">
-                <div id='outputImage'></div>
+                <label for="image"><img src="assets/images/thumb.jpg" class="rounded float-left" alt="student photo" id="img_holder" width="300" height="300"></label>
+                <input type="file" class="form-control-file" id="image" accept=".png, .jpg, .jpeg">
               </div>
             </div>
-            <div class="form-row">
-              <div class='progress' id="progressDivId">
-                <div class='progress-bar' id='progressBar'></div>
-                <div class='percent' id='percent'>0%</div>
-              </div>
-            </div>
-
-<!--             <div class="form-group">
-              <button type="button" class="btn btn-primary btn-block" id="submitButton"> Register  </button>
-            </div>  
-            <small class="text-muted">By clicking the 'Sign Up' button, you confirm that you accept our <br> Terms of use and Privacy Policy.</small>   -->
-
-            <button type="button" id="submitButton" class="btn btn-primary">Update</button>                                        
+            <button type="button" id="submitButton" class="btn btn-primary">Enroll</button>                                        
           </form>
+        </article>
 
 
 
@@ -111,9 +103,6 @@
 
 
 
-        </article> <!-- card-body end .// -->
-        <div class="border-top card-body text-center">Have an account? <a href="">Log In</a></div>
-      </div> <!-- card.// -->
     </div> <!-- col.//-->
 
   </div> <!-- row.//-->

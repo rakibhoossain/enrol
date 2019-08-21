@@ -6,7 +6,7 @@ $userid = 0;
 $subject = 'Choose...';
 $class = 'Choose...';
 
-
+$img= 'assets/images/thumb.jpg';
 
 
 
@@ -33,19 +33,13 @@ if ($result->num_rows > 0) {
     $address = $row['address'];
     $phone = $row['phone'];
     $email= $row['email'];
+
+    if ($row['image']) $img= 'uploads/'.$row['image'];
   }
 
 } else {
    
 }
-
-
-
-
-
-
-
-
 
 $conn->close();
 ?>
@@ -122,8 +116,8 @@ $conn->close();
 
             <div class="form-row">
               <div class="col form-group">
-                <label for="image">Photo upload</label>
-                <input type="file" class="form-control-file" id="image">
+                <label for="image"><img src="<?php echo $img; ?>" class="rounded float-left" alt="student photo" id="img_holder" width="300" height="300"></label>
+                <input type="file" class="form-control-file" id="image" accept=".png, .jpg, .jpeg">
               </div>
               <div class="col">
                 <div id='outputImage'></div>

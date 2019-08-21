@@ -4,50 +4,34 @@
 <div class="container-fluid">
   <div class="row justify-content-center">
     <div class="col-md-12">
-      <div class="card">
+
         <header class="card-header">
-          <!-- <a href="" class="float-right btn btn-outline-primary mt-1">Log in</a> -->
-          <h4 class="card-title mt-2 text-center">Registation form</h4>
+          <h4 class="card-title mt-2 text-center">Students</h4>
         </header>
-        <article class="card-body">
-        	<div class="table-responsive">
-        		<table class="table table-hover table-striped table-bordered" id="studentList">
-        			<thead>
-        				<tr>
-        					<th scope="col">#</th>
-        					<th scope="col">First</th>
+        
+        <article>
+          <div class="table-responsive">
+            <table class="table table-hover table-striped table-bordered" id="studentList">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">First</th>
+                </tr>
+              </thead>
+            </table>
+          </div>
+        </article>
 
-
-
-        				</tr>
-        			</thead>
-        		</table>
-        	</div>
-
-        </article> <!-- card-body end .// -->
-        <div class="border-top card-body text-center">Have an account? <a href="">Log In</a></div>
-      </div> <!-- card.// -->
-    </div> <!-- col.//-->
-
-  </div> <!-- row.//-->
-
+    </div>
+  </div>
 </div> 
-
-
-
-
-
-
-
-
-
 
 <!-- Modal -->
 <div class="modal fade" id="studentModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+        <h5 class="modal-title text-center" id="exampleModalLongTitle">Student Profile</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>

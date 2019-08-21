@@ -4,18 +4,56 @@ include "core/connect.php";
 
 if(!isset($_POST['header']['action'])) return;
 
+//Update
 if ($_POST['header']['action'] == 'update' && $_POST['header']['table'] == 'student') {
 
-    $stmt = $conn->prepare("UPDATE student SET roll = ?,name = ?,class = ?,subject = ?,gender = ?,birth_date = ?,city = ?,address = ?,phone = ?,email = ? WHERE id=?");
+/* Getting file name */
+$filename = $_FILES['file']['name'];
+$photo = 0;
 
-    $stmt->bind_param("isssssssssi", $_POST['data']['roll'], $_POST['data']['name'], $_POST['data']['class'], $_POST['data']['subject'], $_POST['data']['gender'], $_POST['data']['birth_date'], $_POST['data']['city'], $_POST['data']['address'],$_POST['data']['phone'], $_POST['data']['email'], $_POST['header']['id']);
+if ($filename) {
+    // get the date
+    // added this to always refrence America/Los_Angeles VS sever timestamp
+    $date = new DateTime(null, new DateTimeZone('America/Los_Angeles'));
+    $current_date = $date->getTimestamp();
+    // add the date to the filename 
+    $photo = $current_date.$filename;
+
+
+    /* Location */
+    $location = "uploads/".$photo;
+    $uploadOk = 1;
+    $imageFileType = pathinfo($location,PATHINFO_EXTENSION);
+
+    /* Valid Extensions */
+    $valid_extensions = array("jpg","jpeg","png");
+    /* Check file extension */
+    if( !in_array(strtolower($imageFileType),$valid_extensions) ) {
+       $uploadOk = 0;
+    }
+
+    if($uploadOk == 0){
+       echo 0;
+    }else{
+       /* Upload file */
+       if(move_uploaded_file($_FILES['file']['tmp_name'],$location)){
+          echo $location;
+       }else{
+          echo 0;
+       }
+    }
+}
+
+    $stmt = $conn->prepare("UPDATE student SET roll = ?,name = ?,class = ?,subject = ?,gender = ?,birth_date = ?,city = ?,address = ?,phone = ?,email = ?,image = ? WHERE id=?");
+
+    $stmt->bind_param("issssssssssi", $_POST['data']['roll'], $_POST['data']['name'], $_POST['data']['class'], $_POST['data']['subject'], $_POST['data']['gender'], $_POST['data']['birth_date'], $_POST['data']['city'], $_POST['data']['address'],$_POST['data']['phone'], $_POST['data']['email'], $photo, $_POST['header']['id']);
 
     $stmt->execute(); 
     $stmt->close();
 }
 
 
-
+//delete
 if ($_POST['header']['action'] == 'delete' && $_POST['header']['table'] == 'student') {
   $id = $_POST['header']['id'];
 
@@ -27,14 +65,56 @@ if ($_POST['header']['action'] == 'delete' && $_POST['header']['table'] == 'stud
     }
 }
 
-
+//Insert
 if ($_POST['header']['action'] == 'insert' && $_POST['header']['table'] == 'student') {
 
 
 
-$stmt = $conn->prepare("INSERT INTO student (roll,name,class,subject,gender,birth_date,city,address,phone,email) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+/* Getting file name */
+$filename = $_FILES['file']['name'];
+$photo = 0;
 
-    $stmt->bind_param("isssssssss", $_POST['data']['roll'], $_POST['data']['name'], $_POST['data']['class'], $_POST['data']['subject'], $_POST['data']['gender'], $_POST['data']['birth_date'], $_POST['data']['city'], $_POST['data']['address'], $_POST['data']['phone'], $_POST['data']['email']);
+if ($filename) {
+    // get the date
+    // added this to always refrence America/Los_Angeles VS sever timestamp
+    $date = new DateTime(null, new DateTimeZone('America/Los_Angeles'));
+    $current_date = $date->getTimestamp();
+    // add the date to the filename 
+    $photo = $current_date.$filename;
+
+
+    /* Location */
+    $location = "uploads/".$photo;
+    $uploadOk = 1;
+    $imageFileType = pathinfo($location,PATHINFO_EXTENSION);
+
+    /* Valid Extensions */
+    $valid_extensions = array("jpg","jpeg","png");
+    /* Check file extension */
+    if( !in_array(strtolower($imageFileType),$valid_extensions) ) {
+       $uploadOk = 0;
+    }
+
+    if($uploadOk == 0){
+       echo 0;
+    }else{
+       /* Upload file */
+       if(move_uploaded_file($_FILES['file']['tmp_name'],$location)){
+          echo $location;
+       }else{
+          echo 0;
+       }
+    }
+}
+
+
+
+
+
+
+$stmt = $conn->prepare("INSERT INTO student (roll,name,class,subject,gender,birth_date,city,address,phone,email,image) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+
+    $stmt->bind_param("isssssssss", $_POST['data']['roll'], $_POST['data']['name'], $_POST['data']['class'], $_POST['data']['subject'], $_POST['data']['gender'], $_POST['data']['birth_date'], $_POST['data']['city'], $_POST['data']['address'], $_POST['data']['phone'], $_POST['data']['email'], $photo);
 
     $stmt->execute();
 

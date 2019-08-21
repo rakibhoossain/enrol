@@ -12,10 +12,41 @@ $( document ).ready( function( $ ) {
 
         $("#studentList thead").html('<tr>' + tableHeaders + '</tr>');
 
-        $('#studentList').dataTable(json);
+        // $('#studentList').dataTable({'ajax': 'ajax/post.php'});
+
+
+ var table = $('#studentList').DataTable( {
+        ajax: 'ajax/post.php',
+        // lengthChange: true,
+        dom: 'Bfrtip',
+        buttons: [
+            'pageLength', 'print','copy', 'excel', 'pdf','colvis'
+        ]
+        // buttons: [ 'copy', 'excel', 'pdf', 'colvis' ]
+    } );
+
+ $('tbody>tr>td').has( 'img' ).css('padding','0!important');
+ 
+    table.buttons().container().appendTo( '.col-md-6:eq(0)' );
+
       },
       "dataType": "json"
+
+
     });
+
+
+// $(document).delegate( "#studentList tr", "click", function() {
+
+// const id = $(this).children("td").find('.student_id').attr("val");
+// // const id = $('tr>td>span.student_id');
+
+//   console.log(this + id) ;
+// });
+
+
+
+
 
   }
 
@@ -29,8 +60,8 @@ $( document ).ready( function( $ ) {
     });
   }
 
-  $(document).on("click", '#showModal', function(event) { 
-    const userid = $(this).attr("val");
+  $(document).on("click", '#studentList tr', function(event) { 
+    const userid = $(this).children("td").find('.student_id').attr("val");
 
        // AJAX request
        $.ajax({
@@ -60,8 +91,11 @@ $( document ).ready( function( $ ) {
 
   $(document).delegate( "#submitButton", "click", function() {
 
-    var file = $( '#image' ).get( 0 ).files[0],
+    // var file = $( '#image' ).get( 0 ).files[0],
+    var file = $('#image')[0].files[0],
     formData = new FormData();
+
+    console.log('File name'+ file);
 
     formData.append( 'header[table]', 'student' );
     formData.append( 'header[action]', $('#modelForm').attr("act") );
@@ -78,7 +112,7 @@ $( document ).ready( function( $ ) {
     formData.append( 'data[city]', $('#city').val() );
     formData.append( 'data[address]', $('#address').val() );
 
-    formData.append( 'file[name]', file );
+    formData.append( 'file', file );
 
 
     $.ajax( {
@@ -160,6 +194,40 @@ window.location.reload();
                 } );
 
   });
+
+
+// image preview
+$(document).delegate( "#image", "change", function() {
+console.log('clicked');
+
+    var imgPath = $(this)[0].value;
+    var extn = imgPath.substring(imgPath.lastIndexOf('.') + 1).toLowerCase();
+
+    if (extn == "png" || extn == "jpg" || extn == "jpeg") {
+        if (typeof (FileReader) != "undefined") {
+
+            var image_holder = $("#img_holder");
+            //image_holder.empty();
+
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                // $("<img />", {
+                //     "src": e.target.result,
+                //         "class": "thumb-image"
+                // }).appendTo(image_holder);
+                image_holder.attr('src', e.target.result);
+
+            }
+            // image_holder.show();
+
+            reader.readAsDataURL($(this)[0].files[0]);
+        } else {
+            alert("This browser does not support FileReader.");
+        }
+    } else {
+        alert("Pls select only images");
+    }
+});
 
 
   $( document ).delegate( "#class", "click", function() {
