@@ -74,6 +74,43 @@ $stmt = $conn->prepare("INSERT INTO student (roll,name,class,subject,gender,birt
 }
 
 
+
+/*================================
+===== Insert user
+==================================
+*/
+
+if ($_POST['header']['action'] == 'signup' && $_POST['header']['table'] == 'user') {
+  
+  $password = md5($_POST['data']['password']);
+
+  $stmt = $conn->prepare("INSERT INTO user (name, email, username, password, designation, phone, active) VALUES (?, ?, ?, ?, ?, ?, ?)");
+
+    $stmt->bind_param("sssssss", $_POST['data']['name'], $_POST['data']['email'], $_POST['data']['username'], $password, $_POST['data']['designation'], $_POST['data']['phone'], $_POST['data']['active']);
+
+    $stmt->execute();
+
+    echo ($stmt->affected_rows == 1)? 'success' : 'error';
+  
+    $stmt->close();
+    $conn->close();
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*================================
 ===== Getting image
 ==================================

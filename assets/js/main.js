@@ -47,7 +47,7 @@ $( document ).ready( function( $ ) {
     });
   }
 
-  $(document).on("click", '#studentList tr', function(event) { 
+  $(document).on("click", '#studentList tbody tr', function(event) { 
     const userid = $(this).children("td").find('.student_id').attr("val");
 
        // AJAX request
@@ -149,7 +149,7 @@ $( document ).ready( function( $ ) {
                     console.log( data );
                   }
                 } );
-// window.location.reload();
+window.location.reload();
   });    
 
 
@@ -175,7 +175,7 @@ $( document ).ready( function( $ ) {
                     console.log( 'Completed.' );
                     console.log( data );
 
-// window.location.reload();
+window.location.reload();
 
                   }
                 } );

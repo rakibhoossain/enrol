@@ -1,3 +1,9 @@
+<?php
+session_start();
+if(isset($_SESSION["username"])){
+	header("Location: index.php");
+exit(); }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,22 +35,22 @@
 							<div class="input-group-append">
 								<span class="input-group-text"><i class="fas fa-user"></i></span>
 							</div>
-							<input type="text" name="" class="form-control input_user" value="" placeholder="username">
+							<input type="text" name="username" id="loginusername" class="form-control input_user" value="" placeholder="username">
 						</div>
 						<div class="input-group mb-2">
 							<div class="input-group-append">
 								<span class="input-group-text"><i class="fas fa-key"></i></span>
 							</div>
-							<input type="password" name="" class="form-control input_pass" value="" placeholder="password">
+							<input type="password" name="password" id="loginpassword" class="form-control input_pass" value="" placeholder="password">
 						</div>
 						<div class="form-group">
 							<div class="custom-control custom-checkbox">
-								<input type="checkbox" class="custom-control-input" id="customControlInline">
-								<label class="custom-control-label" for="customControlInline">Remember me</label>
+								<input type="checkbox" class="custom-control-input" id="remember">
+								<label class="custom-control-label" for="remember">Remember me</label>
 							</div>
 						</div>
 						<div class="d-flex justify-content-center mt-3">
-							<button type="button" name="login" class="btn login_btn">Login</button>
+							<button type="button" name="login" class="btn login_btn" id="login_req">Login</button>
 						</div>
 						<div class="mt-4">
 							<div class="d-flex justify-content-center links">
@@ -57,43 +63,58 @@
 					</form>
 
 					<form id="signup">
+
 						<div class="input-group mb-2">
 							<div class="input-group-append">
 								<span class="input-group-text"><i class="fas fa-user-circle"></i></span>
 							</div>
-							<input type="text" name="fullname" class="form-control input_pass" value="" placeholder="Your name">
+							<input type="text" name="name" id="signupname" class="form-control input_pass" value="" placeholder="Your name">
 						</div>
+
 						<div class="input-group mb-2">
 							<div class="input-group-append">
 								<span class="input-group-text"><i class="fas fa-envelope"></i></span>
 							</div>
-							<input type="email" name="email" class="form-control input_pass" value="" placeholder="abc@def.com">
+							<input type="email" name="email" id="signupemail" class="form-control input_pass" value="" placeholder="abc@def.com">
 						</div>
+
 						<div class="input-group mb-2">
 							<div class="input-group-append">
 								<span class="input-group-text"><i class="fas fa-phone"></i></span>
 							</div>
-							<input type="text" name="phone" class="form-control input_pass" value="" placeholder="8801111111111">
+							<input type="text" name="phone" id="signupphone" class="form-control input_pass" value="" placeholder="8801111111111">
 						</div>
+
+						<div class="input-group mb-2">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="fas fa-user-plus"></i></span>
+							</div>
+							<select name="designation" id="signupdesignation">
+							  <option value="admin">Administration</option>
+							  <option value="member">General member</option>
+							</select>
+						</div>
+
 						<div class="input-group mb-2">
 							<div class="input-group-append">
 								<span class="input-group-text"><i class="fas fa-user"></i></span>
 							</div>
-							<input type="text" name="username" class="form-control input_user" value="" placeholder="username">
+							<input type="text" name="username" id="signupusername" class="form-control input_user" value="" placeholder="username">
 						</div>
+
 						<div class="input-group mb-3">
 							<div class="input-group-append">
 								<span class="input-group-text"><i class="fas fa-key"></i></span>
 							</div>
-							<input type="password" name="" class="form-control input_pass" value="" placeholder="password">
+							<input type="password" name="password" id="signuppassword" class="form-control input_pass" value="" placeholder="password">
 						</div>
+
 						<div class="form-group">
-							<div class="custom-control">
-								Message
-							</div>
+							<div class="custom-control" id="signupmessage"></div>
 						</div>
+
 						<div class="d-flex justify-content-center mt-3">
-							<button type="button" name="register" class="btn login_btn">Register</button>
+							<button type="button" name="register" class="btn login_btn" id="signup_req">Register</button>
 						</div>
 						<div class="mt-4">
 							<div class="d-flex justify-content-center links">
@@ -110,7 +131,7 @@
 							<div class="input-group-append">
 								<span class="input-group-text"><i class="fas fa-envelope"></i></span>
 							</div>
-							<input type="email" name="email" class="form-control input_pass" value="" placeholder="abc@def.com">
+							<input type="email" name="email" class="form-control input_pass" value="" id="forgetemail" placeholder="abc@def.com">
 						</div>
 						<div class="form-group">
 							<div class="custom-control">
@@ -118,7 +139,7 @@
 							</div>
 						</div>
 						<div class="d-flex justify-content-center mt-3">
-							<button type="button" name="register" class="btn login_btn">Get password</button>
+							<button type="button" name="register" class="btn login_btn" id="forget_req">Get password</button>
 						</div>
 						<div class="mt-4">
 							<div class="d-flex justify-content-center links">

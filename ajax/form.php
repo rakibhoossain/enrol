@@ -9,8 +9,9 @@ $class = 'Choose...';
 $img= 'assets/images/thumb.jpg';
 
 
-
-$userid = $_POST['userid'];
+if (isset($_POST['userid'])) {
+  $userid = $_POST['userid'];
+}
 
 $sql = "SELECT * FROM student WHERE id='$userid'";
 

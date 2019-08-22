@@ -42,10 +42,19 @@
           <a class="nav-link" href="student.php">Student</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="student.php">Login</a>
+          <a class="nav-link" href="admin/">Settings</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="student.php">Log out</a>
+        <?php
+        if(session_id() == '' || !isset($_SESSION)) {
+            session_start();
+        }
+        if(isset($_SESSION["username"])){
+          echo '<a class="nav-link" href="logout.php">Log out</a>';
+        }else{
+          echo '<a class="nav-link" href="login.php">Login</a>';
+        }
+        ?>
         </li>
       </ul>
     </div>

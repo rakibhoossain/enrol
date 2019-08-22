@@ -1,5 +1,5 @@
+<?php require_once('admin/auth.php'); ?>
 <?php require_once('header.php'); ?>
-
 
 <div class="container-fluid">
   <div class="row justify-content-center">
