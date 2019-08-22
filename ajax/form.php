@@ -34,7 +34,7 @@ if ($result->num_rows > 0) {
     $phone = $row['phone'];
     $email= $row['email'];
 
-    if ($row['image']) $img= 'uploads/'.$row['image'];
+    if ($row['image']) $img= 'database/uploads/'.$row['image'];
   }
 
 } else {

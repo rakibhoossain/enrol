@@ -103,7 +103,7 @@ $( document ).ready( function( $ ) {
 
 
     $.ajax( {
-      url        : 'save.php',
+      url        : 'database/save.php',
       type       : 'POST',
       contentType: false,
       cache      : false,
@@ -163,7 +163,7 @@ $( document ).ready( function( $ ) {
     formData.append( 'header[id]', $('#modelForm').attr("data") );
 
     $.ajax( {
-      url        : 'save.php',
+      url        : 'database/save.php',
       type       : 'POST',
       contentType: false,
       cache      : false,

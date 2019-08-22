@@ -28,7 +28,7 @@ if ($result->num_rows > 0) {
             if ($key=='email') continue;
             if ($key=='roll') $value = '<span class="student_id" val="'.$row["id"].'">'.$row["roll"].'</span>';
 
-            if ($key=='image' && $row["image"]) $value = '<img src="uploads/'.$row["image"].'" class="img-responsive" alt="'.$row["name"].'" width="70" height="50">';
+            if ($key=='image' && $row["image"]) $value = '<img src="database/uploads/'.$row["image"].'" class="img-responsive" alt="'.$row["name"].'" width="70" height="50">';
             // if ($key=='image') $value = 'ddr <img src="../uploads/'.$row["image"].'" alt="'.$row["name"].'" width="80" height="50"';
             // if ($key=='roll') continue;
 

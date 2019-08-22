@@ -41,6 +41,12 @@
         <li class="nav-item">
           <a class="nav-link" href="student.php">Student</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="student.php">Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="student.php">Log out</a>
+        </li>
       </ul>
     </div>
   </div>

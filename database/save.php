@@ -1,5 +1,5 @@
 <?php
-include "core/connect.php";
+include "../core/connect.php";
 
 
 if(!isset($_POST['header']['action'])) return;
@@ -117,7 +117,8 @@ function delete_image($id,$conn){
       if ($row['image']) {
         $img= 'uploads/'.$row['image'];
 
-        if (file_exists($img) && unlink($img) ) {
+
+       if (file_exists($img) && unlink($img) ) {
           echo 'Delete file';
         }else{
           echo "file not delete";

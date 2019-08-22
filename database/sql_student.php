@@ -5,9 +5,9 @@ include "../core/connect.php";
 $drop_student = "DROP TABLE IF EXISTS `student`";
 
 if ($conn->query($drop_student) === TRUE) {
-    echo "Table student created successfully";
+    echo "Table student delete successfully";
 } else {
-    echo "Error creating table: " . $conn->error;
+    echo "Error deleting student table table: " . $conn->error;
 }
 
 
