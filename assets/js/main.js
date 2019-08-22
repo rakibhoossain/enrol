@@ -35,19 +35,6 @@ $( document ).ready( function( $ ) {
 
     });
 
-
-// $(document).delegate( "#studentList tr", "click", function() {
-
-// const id = $(this).children("td").find('.student_id').attr("val");
-// // const id = $('tr>td>span.student_id');
-
-//   console.log(this + id) ;
-// });
-
-
-
-
-
   }
 
   if ($("#registation_page").length) { 
@@ -162,7 +149,7 @@ $( document ).ready( function( $ ) {
                     console.log( data );
                   }
                 } );
-window.location.reload();
+// window.location.reload();
   });    
 
 
@@ -188,7 +175,7 @@ window.location.reload();
                     console.log( 'Completed.' );
                     console.log( data );
 
-window.location.reload();
+// window.location.reload();
 
                   }
                 } );
@@ -198,7 +185,6 @@ window.location.reload();
 
 // image preview
 $(document).delegate( "#image", "change", function() {
-console.log('clicked');
 
     var imgPath = $(this)[0].value;
     var extn = imgPath.substring(imgPath.lastIndexOf('.') + 1).toLowerCase();
@@ -207,19 +193,10 @@ console.log('clicked');
         if (typeof (FileReader) != "undefined") {
 
             var image_holder = $("#img_holder");
-            //image_holder.empty();
-
             var reader = new FileReader();
             reader.onload = function (e) {
-                // $("<img />", {
-                //     "src": e.target.result,
-                //         "class": "thumb-image"
-                // }).appendTo(image_holder);
-                image_holder.attr('src', e.target.result);
-
+              image_holder.attr('src', e.target.result);
             }
-            // image_holder.show();
-
             reader.readAsDataURL($(this)[0].files[0]);
         } else {
             alert("This browser does not support FileReader.");
@@ -244,7 +221,6 @@ console.log('clicked');
       get_class:val
     },
     success: function (response) {
-      // document.getElementById("stc").innerHTML=response; 
       el.html(response);
     }
   });
@@ -253,11 +229,11 @@ console.log('clicked');
 
  function subject_list(val,el)
  {
-   $.ajax({
-     type: 'post',
-     url: 'inc/subject.php',
-     data: {
-      get_subject:val
+  $.ajax({
+    type: 'post',
+    url: 'inc/subject.php',
+    data: {
+    get_subject:val
     },
     success: function (response) {
       el.html(response);
@@ -278,7 +254,6 @@ function city_list(val,el)
       el.html(response);
      }
     });
-
 }
 
 

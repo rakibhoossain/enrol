@@ -4,117 +4,64 @@ include "core/connect.php";
 
 if(!isset($_POST['header']['action'])) return;
 
-//Update
+
+/*================================
+===== Update Student
+==================================
+*/
 if ($_POST['header']['action'] == 'update' && $_POST['header']['table'] == 'student') {
+  $id = $_POST['header']['id'];
 
-/* Getting file name */
-$filename = $_FILES['file']['name'];
-$photo = 0;
+/* Getting image */
+$photo = get_image($id,$conn);
 
-if ($filename) {
-    // get the date
-    // added this to always refrence America/Los_Angeles VS sever timestamp
-    $date = new DateTime(null, new DateTimeZone('America/Los_Angeles'));
-    $current_date = $date->getTimestamp();
-    // add the date to the filename 
-    $photo = $current_date.$filename;
+if (isset($_FILES['file']['name'])) {
+  delete_image($id, $conn); //delete old file
+  $photo = upload_image($_POST['data']['roll'], $_FILES['file']['name'], $_FILES['file']['tmp_name']);
+}
+  $stmt = $conn->prepare("UPDATE student SET roll = ?,name = ?,class = ?,subject = ?,gender = ?,birth_date = ?,city = ?,address = ?,phone = ?,email = ?,image = ? WHERE id=?");
 
+  $stmt->bind_param("issssssssssi", $_POST['data']['roll'], $_POST['data']['name'], $_POST['data']['class'], $_POST['data']['subject'], $_POST['data']['gender'], $_POST['data']['birth_date'], $_POST['data']['city'], $_POST['data']['address'],$_POST['data']['phone'], $_POST['data']['email'], $photo, $id);
 
-    /* Location */
-    $location = "uploads/".$photo;
-    $uploadOk = 1;
-    $imageFileType = pathinfo($location,PATHINFO_EXTENSION);
-
-    /* Valid Extensions */
-    $valid_extensions = array("jpg","jpeg","png");
-    /* Check file extension */
-    if( !in_array(strtolower($imageFileType),$valid_extensions) ) {
-       $uploadOk = 0;
-    }
-
-    if($uploadOk == 0){
-       echo 0;
-    }else{
-       /* Upload file */
-       if(move_uploaded_file($_FILES['file']['tmp_name'],$location)){
-          echo $location;
-       }else{
-          echo 0;
-       }
-    }
+  $stmt->execute(); 
+  $stmt->close();
 }
 
-    $stmt = $conn->prepare("UPDATE student SET roll = ?,name = ?,class = ?,subject = ?,gender = ?,birth_date = ?,city = ?,address = ?,phone = ?,email = ?,image = ? WHERE id=?");
-
-    $stmt->bind_param("issssssssssi", $_POST['data']['roll'], $_POST['data']['name'], $_POST['data']['class'], $_POST['data']['subject'], $_POST['data']['gender'], $_POST['data']['birth_date'], $_POST['data']['city'], $_POST['data']['address'],$_POST['data']['phone'], $_POST['data']['email'], $photo, $_POST['header']['id']);
-
-    $stmt->execute(); 
-    $stmt->close();
-}
-
-
-//delete
+/*================================
+===== Delete Student
+==================================
+*/
 if ($_POST['header']['action'] == 'delete' && $_POST['header']['table'] == 'student') {
   $id = $_POST['header']['id'];
 
+
   $sql="DELETE FROM student WHERE id='$id'";
     if ($conn->query($sql) === TRUE) {
+
+        delete_image($id, $conn); //delete old file
+
         echo "Record deleted successfully";
     } else {
         echo "Error deleting record: " . $conn->error;
     }
 }
 
-//Insert
+/*================================
+===== Insert Student
+==================================
+*/
+
 if ($_POST['header']['action'] == 'insert' && $_POST['header']['table'] == 'student') {
 
-
-
 /* Getting file name */
-$filename = $_FILES['file']['name'];
 $photo = 0;
-
-if ($filename) {
-    // get the date
-    // added this to always refrence America/Los_Angeles VS sever timestamp
-    $date = new DateTime(null, new DateTimeZone('America/Los_Angeles'));
-    $current_date = $date->getTimestamp();
-    // add the date to the filename 
-    $photo = $current_date.$filename;
-
-
-    /* Location */
-    $location = "uploads/".$photo;
-    $uploadOk = 1;
-    $imageFileType = pathinfo($location,PATHINFO_EXTENSION);
-
-    /* Valid Extensions */
-    $valid_extensions = array("jpg","jpeg","png");
-    /* Check file extension */
-    if( !in_array(strtolower($imageFileType),$valid_extensions) ) {
-       $uploadOk = 0;
-    }
-
-    if($uploadOk == 0){
-       echo 0;
-    }else{
-       /* Upload file */
-       if(move_uploaded_file($_FILES['file']['tmp_name'],$location)){
-          echo $location;
-       }else{
-          echo 0;
-       }
-    }
+if (isset($_FILES['file']['name'])) {
+  $photo = upload_image($_POST['data']['roll'], $_FILES['file']['name'], $_FILES['file']['tmp_name']);
 }
-
-
-
-
-
 
 $stmt = $conn->prepare("INSERT INTO student (roll,name,class,subject,gender,birth_date,city,address,phone,email,image) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
-    $stmt->bind_param("isssssssss", $_POST['data']['roll'], $_POST['data']['name'], $_POST['data']['class'], $_POST['data']['subject'], $_POST['data']['gender'], $_POST['data']['birth_date'], $_POST['data']['city'], $_POST['data']['address'], $_POST['data']['phone'], $_POST['data']['email'], $photo);
+    $stmt->bind_param("issssssssss", $_POST['data']['roll'], $_POST['data']['name'], $_POST['data']['class'], $_POST['data']['subject'], $_POST['data']['gender'], $_POST['data']['birth_date'], $_POST['data']['city'], $_POST['data']['address'], $_POST['data']['phone'], $_POST['data']['email'], $photo);
 
     $stmt->execute();
 
@@ -124,141 +71,98 @@ $stmt = $conn->prepare("INSERT INTO student (roll,name,class,subject,gender,birt
 
     $stmt->close();
     $conn->close();
+}
 
 
+/*================================
+===== Getting image
+==================================
+*/
+function get_image($id,$conn){
 
+  $sql = "SELECT image FROM student WHERE id='$id'";
+  $result = $conn->query($sql);
 
-  $id = $_POST['header']['id'];
+  if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
 
-  $sql="DELETE FROM student WHERE id='$id'";
-    if ($conn->query($sql) === TRUE) {
-        echo "Record deleted successfully";
-    } else {
-        echo "Error deleting record: " . $conn->error;
+      if ($row['image']) {
+        $img= $row['image'];
+
+        if (file_exists('uploads/'.$img) ) {
+          return $img;
+        }else{
+          return 0;
+        }
+      }
     }
+  } else {
+     return 0;
+  }
 }
 
 
+/*================================
+===== Delete image
+==================================
+*/
+function delete_image($id,$conn){
 
+  $sql = "SELECT image FROM student WHERE id='$id'";
+  $result = $conn->query($sql);
 
+  if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
 
+      if ($row['image']) {
+        $img= 'uploads/'.$row['image'];
 
+        if (file_exists($img) && unlink($img) ) {
+          echo 'Delete file';
+        }else{
+          echo "file not delete";
+        }
+      }
+    }
+  } else {
+     return 0;
+  }
 
-
-
-
-
-
-// $fields = array();
-// $values = implode (', ', $_POST['data']);
-// $parm = $_POST['header']['parm'];
-// $table = $_POST['header']['table'];
-
-
-// foreach ($_POST['data'] as $key => $value) $fields[] = $key;
-
-
-// $columns = implode (' = ?, ', $fields) . ' = ?';
-
-
-
-// $sql = "UPDATE $table SET $columns WHERE id=?";
-// $stmt = $conn->prepare($sql);
-
-// // $st = "$parm, $values, $id";
-// $stmt->bind_param("$parm, $values, $id"); 
-
-
-
-
-// $array = $_POST['data'];
-// $set = array();
-// $data = array();
-
-// foreach ($_POST['data'] as $key => $value){
-
-//     $data[':'.$key] = $value;
-//     $set[] = $key . ' = :' . $key;
-// }
-// $sql = "UPDATE $table SET ".implode($set, ',')." WHERE id=:id";
-
-// var_dump($sql);
-// //$data is now Array(':id'=>'3', ':name'=>'NAME', ':age'=>'12');
-// //$sql is now  "UPDATE table SET name=:name, age=:age WHERE id=:id";
-
-// $stmt = $conn->prepare($sql);
-// $stmt = $stmt->execute($stmt, $data);
-// $stmt->close();
-
-// $stmt = $conn->prepare();
-
-// $fields = array();
-// $values = array();
-
-// $id = 0;
-// $action = '';
-// $parm = '';
-// $table = '';
-// $cols = array();
-
-// if (array_key_exists("id",$_POST)) $id = $_POST['id'];
-// if (array_key_exists("action",$_POST)) $action = $_POST['action'];
-// if (array_key_exists("parm",$_POST)) $parm = $_POST['parm'];
-// if (array_key_exists("table",$_POST)) $table = $_POST['table'];
-
-
-// foreach ($_POST as $key => $value) {
-// 	if ($key == 'file' || $key == 'id' || $key == 'parm' || $key == 'action' || || $key == 'table') continue;
-
-// 	$fields[] = $key;
-// 	$values[] = $value;
-
-
-// $cols[] = "$key = '$value'";
-
-// }
-
-// var_dump($cols);
-
-
-// $columns = implode (' = ?, ', $fields) . ' = ?';
-
-
-// $data = implode (', ', $values);
-
-//     $stmt = $conn->prepare("UPDATE student SET ".$columns." WHERE id=?");
-
-//     $stmt->bind_param("isssssssisisi", $data, $id);
-
-    //$stmt->execute(); 
-    // $stmt->close();
-// header("Location: ?page=2&id=".$id."&action=view&success=1");
-
-
-
-/*$array = array("array", "with", "about", "2000", "values");
-$query = "INSERT INTO table (link) VALUES (?)";
-$stmt = $mysqli->prepare($query);
-$stmt ->bind_param("s", $one);
-
-$mysqli->query("START TRANSACTION");
-foreach ($array as $one) {
-    $stmt->execute();
 }
-$stmt->close();
-$mysqli->query("COMMIT");*/
 
-// date_default_timezone_set( 'Asia/Tashkent' );
-// user_error( print_r( $_FILES, true ) );
-// $uploads_dir = 'uploads/';
-// $target_path = $uploads_dir . basename( $_FILES[ 'file' ][ 'name' ] );
-// if ( move_uploaded_file( $_FILES[ 'file' ][ 'tmp_name' ], $target_path ) )
-// {
-//     echo 'File uploaded: ' . $target_path;
+/*================================
+===== Upload image
+==================================
+*/
+function upload_image($id, $filename, $tmp_loc){
+  if ($filename) {
 
-//     echo $_POST[ 'name' ];
-// }
-// else
-// {
-//     echo 'Error in uploading file ' . $target_path;
-// }
+      //filename
+    $photo = $id.$filename;
+
+    /* Location */
+    $location = "uploads/".$photo;
+    if (file_exists($location)) return $photo;
+
+    $uploadOk = 1;
+    $imageFileType = pathinfo($location,PATHINFO_EXTENSION);
+
+    /* Valid Extensions */
+    $valid_extensions = array("jpg","jpeg","png");
+    /* Check file extension */
+    if( !in_array(strtolower($imageFileType),$valid_extensions) ) {
+     $uploadOk = 0;
+    }
+
+    if($uploadOk == 0){
+      return 0;
+    }else{
+      /* Upload file */
+      if(move_uploaded_file($tmp_loc, $location)){
+        return $photo;
+      }else{
+        return 0;
+      }
+    }
+  }
+}

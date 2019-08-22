@@ -1,6 +1,1 @@
-    $ git status
-    [...]
-    # Untracked files:
-    [...]
-    #       uploads/*
-    [...]
+uploads/*

@@ -44,94 +44,81 @@ if ($result->num_rows > 0) {
 $conn->close();
 ?>
 
-          <form method="post" enctype="multipart/form-data" id="modelForm" data="<?php echo $userid; ?>" act="update">
-            <div class="form-row">
-              <div class="form-group col">
-                <label for="class">Class</label>
-                <select id="class" class="form-control">
-                  <option selected value="<?php echo $class; ?>"><?php echo $class; ?></option>
-                </select>
-              </div>
-              <div class="form-group col">
-                <label for="subject">Subject</label>
-                <select id="subject" class="form-control">
-                  <option selected value="<?php echo $subject; ?>"><?php echo $subject; ?></option>
-                </select>
-              </div>
-              <div class="col form-group">
-                <label>Roll/ID </label>   
-                <input type="text" class="form-control" id="roll" placeholder="" value="<?php echo $roll; ?>">
-              </div> <!-- form-group end.// -->
-            </div> <!-- form-row end.// -->
+<form method="post" enctype="multipart/form-data" id="modelForm" data="<?php echo $userid; ?>" act="update">
+  <div class="form-row">
+    <div class="form-group col">
+      <label for="class">Class</label>
+      <select id="class" class="form-control">
+        <option selected value="<?php echo $class; ?>"><?php echo $class; ?></option>
+      </select>
+    </div>
+    <div class="form-group col">
+      <label for="subject">Subject</label>
+      <select id="subject" class="form-control">
+        <option selected value="<?php echo $subject; ?>"><?php echo $subject; ?></option>
+      </select>
+    </div>
+    <div class="col form-group">
+      <label>Roll/ID </label>   
+      <input type="text" class="form-control" id="roll" placeholder="" value="<?php echo $roll; ?>">
+    </div> <!-- form-group end.// -->
+  </div> <!-- form-row end.// -->
 
-             <div class="form-row">
-              <div class="col form-group">
-                <label for="name">Student name </label>   
-                <input type="text" class="form-control" id="name" placeholder="" value="<?php echo $name; ?>">
-              </div> <!-- form-group end.// -->
-              <div class="col form-group">
-                <label for="birthDay">Date of Birth</label>   
-                <input type="text" class="form-control datepicker hasDatepicker" id="birthDay" placeholder="" value="<?php echo $b_date; ?>">
-              </div> <!-- form-group end.// -->
-              
-              <div class="col form-group">
-                <div class="col">
-                <label for="">Gender</label></div>
+   <div class="form-row">
+    <div class="col form-group">
+      <label for="name">Student name </label>   
+      <input type="text" class="form-control" id="name" placeholder="" value="<?php echo $name; ?>">
+    </div> <!-- form-group end.// -->
+    <div class="col form-group">
+      <label for="birthDay">Date of Birth</label>   
+      <input type="text" class="form-control datepicker hasDatepicker" id="birthDay" placeholder="" value="<?php echo $b_date; ?>">
+    </div> <!-- form-group end.// -->
+    
+    <div class="col form-group">
+      <div class="col">
+      <label for="">Gender</label></div>
 
-                <div class="col">
-                <div class="custom-control custom-radio custom-control-inline">
-                  <input type="radio" id="Male" name="gender" class="custom-control-input" <?php if($gender=='Male') echo 'checked';?>  value="Male">
-                  <label class="custom-control-label" for="Male">Male</label>
-                </div>
-                <div class="custom-control custom-radio custom-control-inline">
-                  <input type="radio" id="Female" name="gender" class="custom-control-input" <?php if($gender=='Female') echo 'checked';?>  value="Female">
-                  <label class="custom-control-label" for="Female">Female</label>
-                </div></div>
-              </div> <!-- form-group end.// -->
-            </div> <!-- form-row end.// -->
+      <div class="col">
+      <div class="custom-control custom-radio custom-control-inline">
+        <input type="radio" id="Male" name="gender" class="custom-control-input" <?php if($gender=='Male') echo 'checked';?>  value="Male">
+        <label class="custom-control-label" for="Male">Male</label>
+      </div>
+      <div class="custom-control custom-radio custom-control-inline">
+        <input type="radio" id="Female" name="gender" class="custom-control-input" <?php if($gender=='Female') echo 'checked';?>  value="Female">
+        <label class="custom-control-label" for="Female">Female</label>
+      </div></div>
+    </div> <!-- form-group end.// -->
+  </div> <!-- form-row end.// -->
 
-            <div class="form-row">
-              <div class="col form-group">
-                <label for="phone">Phone</label>
-                <input type="text" class="form-control" id="phone" placeholder="" value="<?php echo $phone; ?>">
-              </div> <!-- form-group end.// -->
-              <div class="col form-group">
-                <label for="email">Email</label>
-                <input type="email" class="form-control" id="email" placeholder="" value="<?php echo $email; ?>">
-              </div> <!-- form-group end.// -->
-            </div>
+  <div class="form-row">
+    <div class="col form-group">
+      <label for="phone">Phone</label>
+      <input type="text" class="form-control" id="phone" placeholder="" value="<?php echo $phone; ?>">
+    </div> <!-- form-group end.// -->
+    <div class="col form-group">
+      <label for="email">Email</label>
+      <input type="email" class="form-control" id="email" placeholder="" value="<?php echo $email; ?>">
+    </div> <!-- form-group end.// -->
+  </div>
 
-            <div class="form-row">
-              <div class="col-md-6 form-group">
-                <label for="city">City</label>
-                  <select id="city" class="form-control">
-                    <option value="<?php echo $city; ?>" selected ><?php echo $city; ?></option>
-                </select>
-              </div> <!-- form-group end.// -->
-              <div class="col form-group">
-                <label for="address">Address</label>
-                <textarea class="form-control" rows="2" id="address"><?php echo $address; ?></textarea>
-              </div> <!-- form-group end.// -->
-            </div>
+  <div class="form-row">
+    <div class="col-md-6 form-group">
+      <label for="city">City</label>
+        <select id="city" class="form-control">
+          <option value="<?php echo $city; ?>" selected ><?php echo $city; ?></option>
+      </select>
+    </div> <!-- form-group end.// -->
+    <div class="col form-group">
+      <label for="address">Address</label>
+      <textarea class="form-control" rows="2" id="address"><?php echo $address; ?></textarea>
+    </div> <!-- form-group end.// -->
+  </div>
 
-            <div class="form-row">
-              <div class="col form-group">
-                <label for="image"><img src="<?php echo $img; ?>" class="rounded float-left" alt="student photo" id="img_holder" width="300" height="300"></label>
-                <input type="file" class="form-control-file" id="image" accept=".png, .jpg, .jpeg">
-              </div>
-              <div class="col">
-                <div id='outputImage'></div>
-              </div>
-            </div>
-            <div class="form-row">
-              <div class='progress' id="progressDivId">
-                <div class='progress-bar' id='progressBar'></div>
-                <div class='percent' id='percent'>0%</div>
-              </div>
-            </div>
-
-<!--             <div class="form-group">
-              <button type="button" class="btn btn-primary btn-block" id="submitButton"> Register  </button>
-            </div>  
-            <small class="text-muted">By clicking the 'Sign Up' button, you confirm that you accept our <br> Terms of use and Privacy Policy.</small>   -->                                     
-          </form>
+  <div class="form-row">
+    <div class="col form-group">
+      <label for="image"><img src="<?php echo $img; ?>" class="rounded float-left" alt="student photo" id="img_holder" width="300" height="300"></label>
+      <input type="file" class="form-control-file" id="image" accept=".png, .jpg, .jpeg">
+    </div>
+  </div>
+                                       
+</form>
