@@ -1,4 +1,5 @@
 $( document ).ready( function( $ ) {
+"use strict";
 
   if ($("#studentList thead").length) { 
 
