@@ -24,6 +24,7 @@ if (isset($_FILES['file']['name'])) {
   $stmt->bind_param("issssssssssi", $_POST['data']['roll'], $_POST['data']['name'], $_POST['data']['class'], $_POST['data']['subject'], $_POST['data']['gender'], $_POST['data']['birth_date'], $_POST['data']['city'], $_POST['data']['address'],$_POST['data']['phone'], $_POST['data']['email'], $photo, $id);
 
   $stmt->execute(); 
+  echo ($stmt->affected_rows == 1)? 'success' : 'error';
   $stmt->close();
 }
 
@@ -64,11 +65,7 @@ $stmt = $conn->prepare("INSERT INTO student (roll,name,class,subject,gender,birt
     $stmt->bind_param("issssssssss", $_POST['data']['roll'], $_POST['data']['name'], $_POST['data']['class'], $_POST['data']['subject'], $_POST['data']['gender'], $_POST['data']['birth_date'], $_POST['data']['city'], $_POST['data']['address'], $_POST['data']['phone'], $_POST['data']['email'], $photo);
 
     $stmt->execute();
-
-    printf("%d Row inserted.\n", $stmt->affected_rows);
-
-    echo "New records created successfully";
-
+    echo ($stmt->affected_rows == 1)? 'success' : 'error';
     $stmt->close();
     $conn->close();
 }
@@ -141,6 +138,12 @@ if ($_POST['header']['action'] == 'delete' && $_POST['header']['table'] == 'user
     $sql="DELETE FROM user WHERE id='$id'";
     if ($conn->query($sql) === TRUE) {
         echo 'success';
+      if(session_id() == '' || !isset($_SESSION)) {
+        session_start();
+      }
+      if ($_SESSION['id'] == $id) {
+        session_destroy();
+      }
     } else {
         echo 'error';
     }

@@ -33,7 +33,7 @@ if ($result->num_rows > 0) {
     $email = $row['email'];
     $active = $row['active'];
 ?>
-    <tr val="<?php echo $id; ?>">
+    <tr val="<?php echo $id; ?>" <?php echo ($active != 1)? ' class="inactive"' : '';?>>
         <td><?php echo $name;?></td>
         <td><?php echo $designation;?></td>
         <td><?php echo $phone;?></td>
@@ -74,7 +74,21 @@ $conn->close();
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <button type="button" id="submitButton" class="btn btn-primary">Update</button>
-        <button type="button" id="deletButton" class="btn btn-danger">Delete</button>
+
+  <?php 
+      if(session_id() == '' || !isset($_SESSION)) {
+        session_start();
+      }
+      $disabled = 'disabled';
+      $adminCanEdit = 'disabled';
+      if ($_SESSION['username'] == $username || $_SESSION['designation'] == 'admin' ) {
+        $disabled = '';
+      }
+    if ($_SESSION['designation'] == 'admin' ) {
+        $adminCanEdit = '';
+      }
+  ?>
+        <button type="button" id="deletButton" class="btn btn-danger" <?php echo $disabled;?>>Delete</button>
       </div>
     </div>
   </div>

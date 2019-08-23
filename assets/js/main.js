@@ -77,9 +77,17 @@ $( document ).ready( function( $ ) {
   });
 
 
-  $("#studentModel").delegate( "#submitButton", "click", function() {
+  $("#studentModel").delegate( "#submitButton", "click", function(e) {
+    insertStudent(e);
+  }); 
 
-    // var file = $( '#image' ).get( 0 ).files[0],
+  $("#registation_page").delegate( "#submitButton", "click", function(e) {
+    insertStudent(e);
+  }); 
+
+
+  function insertStudent(e){
+// var file = $( '#image' ).get( 0 ).files[0],
     var file = $('#image')[0].files[0],
     formData = new FormData();
 
@@ -112,13 +120,20 @@ $( document ).ready( function( $ ) {
       data       : formData,
       success    : function ( data )
       {
-        window.location.reload();
+        if (data == 'success') {
+          alert("Operation success");
+          window.location.reload();
+        }else{
+          alert("Operation failed! Try again!");
+        }
       }
-    } );
+    } ); 
+  }
 
-  });    
 
 
+
+// Delete student
   $("#studentModel").delegate( "#deletButton", "click", function() { 
     var formData = new FormData();
 

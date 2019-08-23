@@ -1,9 +1,6 @@
 <?php
 require 'init.php';
 
-//Database name
-$dbname = "school";
-
 // Create connection
 $conn = new mysqli($servername, $username, $db_password, $dbname);
 // Check connection

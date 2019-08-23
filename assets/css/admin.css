@@ -51,10 +51,16 @@
   }
 }
 
+#userCart{
+  cursor: pointer;
+}
 #userCart .fas{
  font-size: 40px; 
 }
 
+#userList tbody tr.inactive{
+  background-color: red;
+}
 
 /*
 *

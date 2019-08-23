@@ -4,8 +4,11 @@
 			margin: 0;
 			padding: 0;
 			height: 100%;
-			background: #60a3bc !important;
+			background: #599fd9;
+  			background: -webkit-linear-gradient(to right, #599fd9, #c2e59c);
+  			background: linear-gradient(to right, #599fd9, #c2e59c);
 		}
+
 		.user_card {
 /*			height: 400px;*/
 			width: 350px;
@@ -33,6 +36,12 @@
 			padding: 10px;
 			text-align: center;
 		}
+		.brand_logo_container .fas {
+		    font-size: 151px;
+		    color: #c0392b;
+		}
+
+
 		.brand_logo {
 			height: 150px;
 			width: 150px;

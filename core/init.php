@@ -7,4 +7,7 @@ $username = "root";
 
 //server password
 $db_password = "";
+
+//Database name
+$dbname = "school";
 ?>

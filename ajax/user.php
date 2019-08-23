@@ -32,7 +32,19 @@ if ($result->num_rows > 0) {
 $conn->close();
 ?>
 
-
+<?php 
+    if(session_id() == '' || !isset($_SESSION)) {
+      session_start();
+    }
+    $disabled = 'disabled';
+    $adminCanEdit = 'disabled';
+  	if ($_SESSION['username'] == $username || $_SESSION['designation'] == 'admin' ) {
+  		$disabled = '';
+  	}
+	if ($_SESSION['designation'] == 'admin' ) {
+  		$adminCanEdit = '';
+  	}
+?>
 <form id="userUpdate" val="<?php echo $id;?>">
 	<div class="input-group mb-2">
 		<div class="input-group-append">
@@ -59,31 +71,17 @@ $conn->close();
 		<div class="input-group-append">
 			<span class="input-group-text"><i class="fas fa-user-plus"></i></span>
 		</div>
-		<select name="designation" id="signupdesignation">
+		<select name="designation" id="signupdesignation" <?php echo $adminCanEdit;?>>
 		  <option value="admin" <?php echo ($designation == 'admin')? 'selected' : ''; ?>>Administration</option>
 		  <option value="member"<?php echo ($designation == 'member')? 'selected' : ''; ?>>General member</option>
 		</select>
 	</div>
-	<?php 
-	    if(session_id() == '' || !isset($_SESSION)) {
-	      session_start();
-	    }
-	    $disabled = 'disabled';
-	    $adminCanEdit = 'disabled';
-	  	if ($_SESSION['username'] == $username || $_SESSION['designation'] == 'admin' ) {
-	  		$disabled = '';
-	  	}
-		if ($_SESSION['designation'] == 'admin' ) {
-	  		$adminCanEdit = '';
-	  	}
-	?>
 	<div class="input-group mb-2">
 		<div class="input-group-append">
 			<span class="input-group-text"><i class="fas fa-user"></i></span>
 		</div>
 		<input type="text" <?php echo $disabled;?> name="username" id="signupusername" class="form-control input_user" value="<?php echo $username; ?>" placeholder="username">
 	</div>
-
 	<div class="input-group mb-3">
 		<div class="input-group-append">
 			<span class="input-group-text"><i class="fas fa-key"></i></span>
