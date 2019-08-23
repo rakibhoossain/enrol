@@ -69,8 +69,12 @@ $conn->close();
 	      session_start();
 	    }
 	    $disabled = 'disabled';
+	    $adminCanEdit = 'disabled';
 	  	if ($_SESSION['username'] == $username || $_SESSION['designation'] == 'admin' ) {
 	  		$disabled = '';
+	  	}
+		if ($_SESSION['designation'] == 'admin' ) {
+	  		$adminCanEdit = '';
 	  	}
 	?>
 	<div class="input-group mb-2">
@@ -92,14 +96,12 @@ $conn->close();
 	</div>
 
 	<div class="d-flex justify-content-center mt-3">
-		<button type="button" name="register" class="btn login_btn" id="signup_req">Register</button>
+		<!-- Material indeterminate -->
+	<div class="form-check">
+	  <input type="checkbox" value='1' class="form-check-input" id="activeUser" <?php echo ($active == 1)? 'checked ' : ''; echo $adminCanEdit; ?>>
+	  <label class="form-check-label" for="activeUser">Active account</label>
 	</div>
-	<div class="mt-4">
-		<div class="d-flex justify-content-center links">
-			Already have an account? <a href="#" id="login_btn" class="ml-2">Login</a>
-		</div>
-		<div class="d-flex justify-content-center links">
-			<a href="#" id="forget_btn">Forgot your password?</a>
-		</div>
+
 	</div>
+
 </form>

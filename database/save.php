@@ -107,9 +107,11 @@ if ($_POST['header']['action'] == 'update' && $_POST['header']['table'] == 'user
   $name = $_POST['data']['name'];
   $designation = $_POST['data']['designation'];
 
+  $active = ($_POST['data']['active'] == 1)? '1' : '0';
+
   $stmt = $conn->prepare("UPDATE user SET name = ?,email = ?,username = ?,password = ?,designation = ?,phone = ?,active = ? WHERE id=?");
 
-  $stmt->bind_param("sssssssi", $name, $_POST['data']['email'], $_POST['data']['username'], $password, $designation, $_POST['data']['phone'], $_POST['data']['active'], $id);
+  $stmt->bind_param("sssssssi", $name, $_POST['data']['email'], $_POST['data']['username'], $password, $designation, $_POST['data']['phone'],  $active, $id);
 
   $stmt->execute(); 
 

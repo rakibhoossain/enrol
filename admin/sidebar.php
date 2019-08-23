@@ -1,17 +1,17 @@
-<!-- Vertical navbar -->
-<div class="vertical-nav bg-white" id="sidebar">
-  <div class="py-4 px-3 mb-4 bg-light">
-    <div class="media d-flex align-items-center"><img src="https://res.cloudinary.com/mhmd/image/upload/v1556074849/avatar-1_tcnd60.png" alt="..." width="65" class="mr-3 rounded-circle img-thumbnail shadow-sm">
-      <div class="media-body">
 <?php
-
 if(session_id() == '' || !isset($_SESSION)) {
     session_start();
 }
-
-
+$sessionUserID = isset($_SESSION['id'])? $_SESSION['id'] : '';
 ?>
 
+<!-- Vertical navbar -->
+<div class="vertical-nav bg-white" id="sidebar">
+  <div class="py-4 px-3 mb-4 bg-light">
+    <div class="media d-flex align-items-center" id="userCart" val="<?php echo $sessionUserID;?>">
+    <span class="mr-3 rounded-circle img-thumbnail shadow-sm"><i class="fas fa-user-circle"></i></span>
+    <!-- <img src="https://res.cloudinary.com/mhmd/image/upload/v1556074849/avatar-1_tcnd60.png" alt="..." width="65" class="mr-3 rounded-circle img-thumbnail shadow-sm"> -->
+      <div class="media-body">
         <h4 class="m-0"><?php echo (isset($_SESSION["name"]))? $_SESSION["name"] : ''; ?></h4>
         <p class="font-weight-light text-muted mb-0"><?php echo (isset($_SESSION["designation"]))? $_SESSION["designation"] : ''; ?></p>
       </div>

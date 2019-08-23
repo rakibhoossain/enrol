@@ -32,17 +32,15 @@ if ($result->num_rows > 0) {
     $phone = $row['phone'];
     $email = $row['email'];
     $active = $row['active'];
-
 ?>
-
-        <tr val="<?php echo $id; ?>">
-            <td><?php echo $name;?></td>
-            <td><?php echo $designation;?></td>
-            <td><?php echo $phone;?></td>
-            <td><?php echo $email;?></td>
-            <td><?php echo $username;?></td>
-            <td><?php echo $active;?></td>
-        </tr>
+    <tr val="<?php echo $id; ?>">
+        <td><?php echo $name;?></td>
+        <td><?php echo $designation;?></td>
+        <td><?php echo $phone;?></td>
+        <td><?php echo $email;?></td>
+        <td><?php echo $username;?></td>
+        <td><?php echo ($active == 1)? 'Yes' : 'No';?></td>
+    </tr>
         
 
 

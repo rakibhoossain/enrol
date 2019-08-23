@@ -8,73 +8,71 @@ $(function() {
 });
 
 
-  $(document).on("click", '#userList tbody tr', function(event) { 
+  // $(document).on("click", '#userList tbody tr', function(event) { 
+  //   const userid = $(this).attr("val");
+
+  //      // AJAX request
+  //      $.ajax({
+  //       url: 'ajax/user.php',
+  //       type: 'post',
+  //       data: {userid: userid},
+  //       success: function(response){ 
+  //            // Add response in Modal body
+  //           $('#userModel .modal-body').html(response);
+  //           // Display Modal
+  //           $('#userModel').modal('show'); 
+  //           }
+  //       });
+
+  // });
+
+//userShow
+  $(document).delegate( "#userList tbody tr", "click", function(e) { 
     const userid = $(this).attr("val");
-
-    console.log( 'id  :' + userid);
-
-       // AJAX request
-       $.ajax({
-        url: 'ajax/user.php',
-        type: 'post',
-        data: {userid: userid},
-        success: function(response){ 
-             // Add response in Modal body
-            $('#userModel .modal-body').html(response);
-
-            // subject_list($('#class').val(), $('#subject'));
-            // class_list($('#class').val(), $('#class'));
-            // city_list($('#city').val(), $('#city'));
-
-            // $('input.datepicker').Zebra_DatePicker({
-            //   show_icon: false,
-            //   format: 'd-m-Y'
-            // });
-
-            // Display Modal
-            $('#userModel').modal('show'); 
-            }
-        });
-
+    userShow(userid);
   });
-
+  $(document).delegate( "#userCart", "click", function(e) { 
+    const userid = $(this).attr("val");
+    userShow(userid);
+  });
 
 //userUpdate
-  $('#userModel').delegate( "#submitButton", "click", function() { 
-
-    var formData = new FormData();
-    formData.append( 'header[table]', 'user' );
-    formData.append( 'header[action]', 'update' );
-    formData.append( 'header[id]', $('#userUpdate').attr("val") );
-    formData.append( 'data[name]', $('#userUpdate #signupname').val() );
-    formData.append( 'data[email]', $('#userUpdate #signupemail').val() );
-    formData.append( 'data[phone]', $('#userUpdate #signupphone').val() );
-    formData.append( 'data[designation]', $('#userUpdate #signupdesignation').find(":selected").val() );
-    formData.append( 'data[username]', $('#userUpdate #signupusername').val() );
-    formData.append( 'data[password]', $('#userUpdate #signuppassword').val() );
-    formData.append( 'data[active]', '0' );
-
-    $.ajax({
-      url        : 'database/save.php',
-      type       : 'POST',
-      contentType: false,
-      cache      : false,
-      processData: false,
-      data       : formData,
-      success    : function ( data )
-      {
-        if (data == 'success') {
-          window.location.reload();
-        }else{
-          console.log('Please try again' + data);
-        }
-
-       }
-    });
-
+  $('#userModel').delegate( "#submitButton", "click", function(e) { 
+    updateUser(e);
   });
 
-   $("#userModel").delegate( "#deletButton", "click", function() { 
+  //userDelete
+  $("#userModel").delegate( "#deletButton", "click", function(e) { 
+      deleteStudent(e);
+  }); 
+
+
+
+/*============================
+=========== Show user
+==============================
+*/
+function userShow(userid){
+// AJAX request
+ $.ajax({
+  url: 'ajax/user.php',
+  type: 'post',
+  data: {userid: userid},
+  success: function(response){ 
+       // Add response in Modal body
+      $('#userModel .modal-body').html(response);
+      // Display Modal
+      $('#userModel').modal('show'); 
+      }
+  });
+}
+
+/*============================
+=========== Delete user
+==============================
+*/
+function deleteStudent(e){
+
     var formData = new FormData();
 
     formData.append( 'header[table]', 'user' );
@@ -97,7 +95,47 @@ $(function() {
         }
       }
     } );
+}
 
-  }); 
+
+/*============================
+=========== Update user
+==============================
+*/
+function updateUser(e){
+
+    var formData = new FormData();
+    formData.append( 'header[table]', 'user' );
+    formData.append( 'header[action]', 'update' );
+    formData.append( 'header[id]', $('#userUpdate').attr("val") );
+    formData.append( 'data[name]', $('#userUpdate #signupname').val() );
+    formData.append( 'data[email]', $('#userUpdate #signupemail').val() );
+    formData.append( 'data[phone]', $('#userUpdate #signupphone').val() );
+    formData.append( 'data[designation]', $('#userUpdate #signupdesignation').find(":selected").val() );
+    formData.append( 'data[username]', $('#userUpdate #signupusername').val() );
+    formData.append( 'data[password]', $('#userUpdate #signuppassword').val() );
+    formData.append( 'data[active]', $('#userUpdate #activeUser:checked').val() );
+
+    $.ajax({
+      url        : 'database/save.php',
+      type       : 'POST',
+      contentType: false,
+      cache      : false,
+      processData: false,
+      data       : formData,
+      success    : function ( data )
+      {
+        if (data == 'success') {
+          window.location.reload();
+        }else{
+          console.log('Please try again' + data);
+        }
+
+       }
+    });
+}
+
+
+
 
 });
