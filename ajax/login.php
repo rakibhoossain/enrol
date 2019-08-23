@@ -22,10 +22,10 @@ if ($_POST['header']['action'] == 'login' && $_POST['header']['table'] == 'user'
       session_start();
     }
   	$_SESSION['username'] = $username;
-
     while($row = $result->fetch_assoc()) {
       $_SESSION['name'] = $row['name'];
       $_SESSION['designation'] = $row['designation'];
+      $_SESSION['id'] = $row['id'];
     }
   }else {
      echo 'error';

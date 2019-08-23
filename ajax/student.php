@@ -11,6 +11,8 @@ $img= 'assets/images/thumb.jpg';
 
 if (isset($_POST['userid'])) {
   $userid = $_POST['userid'];
+}else{
+  exit();
 }
 
 $sql = "SELECT * FROM student WHERE id='$userid'";

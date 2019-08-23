@@ -14,9 +14,9 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/zebra_datepicker@latest/dist/css/bootstrap/zebra_datepicker.min.css">
 
 
+<link rel="stylesheet" type="text/css" href="assets/css/admin.css">
 
-
-    <link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="assets/css/style.css">
 
     <title>Hello, world!</title>
   </head>
@@ -39,10 +39,10 @@
               </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="student.php">Student</a>
+          <a class="nav-link" href="?page=student">Student</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="admin/">Settings</a>
+          <a class="nav-link" href="?page=dashboard">Dashboard</a>
         </li>
         <li class="nav-item">
         <?php

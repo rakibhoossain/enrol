@@ -96,17 +96,53 @@ if ($_POST['header']['action'] == 'signup' && $_POST['header']['table'] == 'user
     $conn->close();
 }
 
+/*================================
+===== Update user
+==================================
+*/
+if ($_POST['header']['action'] == 'update' && $_POST['header']['table'] == 'user') {
+  $id = $_POST['header']['id'];
+ 
+  $password = md5($_POST['data']['password']);
+  $name = $_POST['data']['name'];
+  $designation = $_POST['data']['designation'];
 
+  $stmt = $conn->prepare("UPDATE user SET name = ?,email = ?,username = ?,password = ?,designation = ?,phone = ?,active = ? WHERE id=?");
 
+  $stmt->bind_param("sssssssi", $name, $_POST['data']['email'], $_POST['data']['username'], $password, $designation, $_POST['data']['phone'], $_POST['data']['active'], $id);
 
+  $stmt->execute(); 
 
+  if ($stmt->affected_rows == 1) {
+    if(session_id() == '' || !isset($_SESSION)) {
+      session_start();
+    }
+    if ($_SESSION['id'] == $id) {
+      $_SESSION['name'] = ($_SESSION['name'] != $name )? $name : $_SESSION['name'];
+      $_SESSION["designation"] = ($_SESSION['designation'] != $designation )? $designation : $_SESSION['designation'];
+    }
+    echo 'success';
+  }else{
+    echo 'error';
+  }
 
+  $stmt->close();
+}
 
+/*================================
+===== Delete user
+==================================
+*/
+if ($_POST['header']['action'] == 'delete' && $_POST['header']['table'] == 'user') {
+  $id = $_POST['header']['id'];
 
-
-
-
-
+    $sql="DELETE FROM user WHERE id='$id'";
+    if ($conn->query($sql) === TRUE) {
+        echo 'success';
+    } else {
+        echo 'error';
+    }
+}
 
 
 

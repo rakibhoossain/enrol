@@ -53,12 +53,12 @@ $( document ).ready( function( $ ) {
 
        // AJAX request
        $.ajax({
-        url: 'ajax/form.php',
+        url: 'ajax/student.php',
         type: 'post',
         data: {userid: userid},
         success: function(response){ 
              // Add response in Modal body
-            $('.modal-body').html(response);
+            $('#studentModel .modal-body').html(response);
 
             subject_list($('#class').val(), $('#subject'));
             class_list($('#class').val(), $('#class'));
@@ -77,7 +77,7 @@ $( document ).ready( function( $ ) {
   });
 
 
-  $(document).delegate( "#submitButton", "click", function() {
+  $("#studentModel").delegate( "#submitButton", "click", function() {
 
     // var file = $( '#image' ).get( 0 ).files[0],
     var file = $('#image')[0].files[0],
@@ -110,53 +110,16 @@ $( document ).ready( function( $ ) {
       cache      : false,
       processData: false,
       data       : formData,
-      xhr        : function ()
+      success    : function ( data )
       {
-        var jqXHR = null;
-        if ( window.ActiveXObject )
-        {
-          jqXHR = new window.ActiveXObject( "Microsoft.XMLHTTP" );
-        }
-        else
-        {
-          jqXHR = new window.XMLHttpRequest();
-        }
-                    //Upload progress
-                    jqXHR.upload.addEventListener( "progress", function ( evt )
-                    {
-                      if ( evt.lengthComputable )
-                      {
-                        var percentComplete = Math.round( (evt.loaded * 100) / evt.total );
-                            //Do something with upload progress
-                            console.log( 'Uploaded percent', percentComplete );
-                          }
-                        }, false );
-                    //Download progress
-                    jqXHR.addEventListener( "progress", function ( evt )
-                    {
-                      if ( evt.lengthComputable )
-                      {
-                        var percentComplete = Math.round( (evt.loaded * 100) / evt.total );
-                            //Do something with download progress
-                            console.log( 'Downloaded percent', percentComplete );
-                          }
-                        }, false );
-                    return jqXHR;
-                  },
-                  success    : function ( data )
-                  {
-                    //Do something success-ish
-                    console.log( 'Completed.' );
-                    console.log( data );
-                  }
-                } );
-window.location.reload();
+        window.location.reload();
+      }
+    } );
+
   });    
 
 
   $("#studentModel").delegate( "#deletButton", "click", function() { 
-
-
     var formData = new FormData();
 
     formData.append( 'header[table]', 'student' );
@@ -172,14 +135,9 @@ window.location.reload();
       data       : formData,
       success    : function ( data )
       {
-                    //Do something success-ish
-                    console.log( 'Completed.' );
-                    console.log( data );
-
-window.location.reload();
-
-                  }
-                } );
+        window.location.reload();
+      }
+    } );
 
   });
 

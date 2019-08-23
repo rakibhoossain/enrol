@@ -17,24 +17,24 @@ if(session_id() == '' || !isset($_SESSION)) {
       </div>
     </div>
   </div>
-<?php require_once('../core/connect.php');?>
-  <p class="text-gray font-weight-bold text-uppercase px-3 small pb-4 mb-0">Main</p>
+<?php require_once('core/connect.php');?>
+  <p class="text-gray font-weight-bold text-uppercase px-3 small pb-4 mb-0">Dashboard</p>
 
   <ul class="nav flex-column bg-white mb-0">
     <li class="nav-item">
-      <a href="../" class="nav-link text-dark font-italic bg-light">
+      <a href="?page=dashboard" class="nav-link text-dark font-italic bg-light">
         <i class="fa fa-th-large mr-3 text-primary fa-fw"></i>
         Home
       </a>
     </li>
     <li class="nav-item">
-      <a href="?page=1" class="nav-link text-dark font-italic">
+      <a href="?page=dashboard&admin=user" class="nav-link text-dark font-italic">
         <i class="fa fa-address-card mr-3 text-primary fa-fw"></i>
         User <span class="badge badge-secondary"><?php echo get_count('user', $conn); ?></span>
       </a>
     </li>
     <li class="nav-item">
-      <a href="?page=2" class="nav-link text-dark font-italic">
+      <a href="?page=dashboard&admin=student" class="nav-link text-dark font-italic">
         <i class="fa fa-cubes mr-3 text-primary fa-fw"></i>
           Student <span class="badge badge-secondary"><?php echo get_count('student', $conn); ?></span>
         </a>
