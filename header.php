@@ -60,6 +60,13 @@
                 <span class="sr-only">(current)</span>
               </a>
         </li>
+
+        <?php
+        if(session_id() == '' || !isset($_SESSION)) {
+            session_start();
+        }?>
+<?php if(isset($_SESSION["username"])): ?>
+
         <li class="nav-item">
           <a class="nav-link" href="?page=registration">Registation</a>
         </li>
@@ -69,11 +76,10 @@
         <li class="nav-item">
           <a class="nav-link" href="?page=dashboard">Dashboard</a>
         </li>
+<?php endif; ?>
+
         <li class="nav-item">
         <?php
-        if(session_id() == '' || !isset($_SESSION)) {
-            session_start();
-        }
         if(isset($_SESSION["username"])){
           echo '<a class="nav-link" href="logout.php">Log out</a>';
         }else{

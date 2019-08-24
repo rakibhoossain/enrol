@@ -51,6 +51,7 @@ $( document ).ready( function( $ ) {
   $(document).on("click", '#studentList tbody tr', function(event) { 
     const userid = $(this).children("td").find('.student_id').attr("val");
 
+      $('#preloader').show();
        // AJAX request
        $.ajax({
         url: 'ajax/student.php',
@@ -69,6 +70,7 @@ $( document ).ready( function( $ ) {
               format: 'd-m-Y'
             });
 
+            $('#preloader').hide();
             // Display Modal
             $('#studentModel').modal('show'); 
             }
@@ -109,7 +111,7 @@ $( document ).ready( function( $ ) {
     formData.append( 'data[address]', $('#address').val() );
 
     formData.append( 'file', file );
-
+$('#preloader').show();
 
     $.ajax( {
       url        : 'database/save.php',
@@ -120,6 +122,7 @@ $( document ).ready( function( $ ) {
       data       : formData,
       success    : function ( data )
       {
+        $('#preloader').hide();
         if (data == 'success') {
           alert("Operation success");
           window.location.reload();
@@ -130,11 +133,9 @@ $( document ).ready( function( $ ) {
     } ); 
   }
 
-
-
-
 // Delete student
   $("#studentModel").delegate( "#deletButton", "click", function() { 
+     $('#preloader').show();
     var formData = new FormData();
 
     formData.append( 'header[table]', 'student' );
@@ -150,7 +151,13 @@ $( document ).ready( function( $ ) {
       data       : formData,
       success    : function ( data )
       {
-        window.location.reload();
+        $('#preloader').hide();
+        if (data == 'success') {
+          alert("Operation success");
+          window.location.reload();
+        }else{
+          alert("Operation failed! Try again!");
+        }
       }
     } );
 

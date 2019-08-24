@@ -1,16 +1,5 @@
-<?php require_once('admin/auth.php'); ?>
 <?php require_once('header.php'); ?>
-
-
-
 <?php
-
-
-
-
-
-
-
     if ((!isset($_GET['page']))) require_once('welcome.php');
      if(isset($_GET['page'])) {
       $page=$_GET['page'];

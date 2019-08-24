@@ -1,3 +1,4 @@
+<?php require_once('admin/auth.php'); ?>
 <div class="col-md-12">
   <header class="card-header section-header">
     <h4 class="card-title mt-2 text-center">Registation form</h4>

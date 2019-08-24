@@ -35,15 +35,12 @@ if (isset($_FILES['file']['name'])) {
 if ($_POST['header']['action'] == 'delete' && $_POST['header']['table'] == 'student') {
   $id = $_POST['header']['id'];
 
-
   $sql="DELETE FROM student WHERE id='$id'";
     if ($conn->query($sql) === TRUE) {
-
         delete_image($id, $conn); //delete old file
-
-        echo "Record deleted successfully";
+        echo 'success';
     } else {
-        echo "Error deleting record: " . $conn->error;
+        echo 'error';
     }
 }
 
@@ -205,9 +202,9 @@ function delete_image($id,$conn){
 
 
        if (file_exists($img) && unlink($img) ) {
-          echo 'Delete file';
+          // echo 'Delete file';
         }else{
-          echo "file not delete";
+          // echo "file not delete";
         }
       }
     }
