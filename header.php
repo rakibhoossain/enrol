@@ -61,7 +61,7 @@
               </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="?page=registation">Registation</a>
+          <a class="nav-link" href="?page=registration">Registation</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="?page=student">Student</a>
