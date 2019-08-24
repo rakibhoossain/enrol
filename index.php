@@ -4,21 +4,29 @@
 
 
 <?php
-    if ((!isset($_GET['page']))) require_once('registation.php');
+
+
+
+
+
+
+
+    if ((!isset($_GET['page']))) require_once('welcome.php');
      if(isset($_GET['page'])) {
       $page=$_GET['page'];
-       if ($page == 'dashboard'){
-        require_once('admin/dashboard.php');
+      switch($page){
+        case 'registration':
+            require_once('registration.php');
+            break;
+        case 'student':
+            require_once('student.php');
+            break;
+        case 'dashboard':
+            require_once('admin/dashboard.php');
+            break;
+        default:
+            require_once('404.php');;
       }
-      if ($page == 'student'){
-        require_once('student.php');
-      }
-      // if ($page == '6'){
-      //   session_unset(); 
-      //   session_destroy();
-      //   header('Location: index.php');
-      // }
-
     }
   ?>
 

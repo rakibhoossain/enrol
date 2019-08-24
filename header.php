@@ -18,7 +18,29 @@
 
 <link rel="stylesheet" href="assets/css/style.css">
 
-    <title>Hello, world!</title>
+
+
+<?php
+  $title = '';
+  $page = isset($_GET['page'])?$_GET['page']:'home';
+  switch($page){
+    case 'home':
+        $title = 'Home';
+        break;
+    case 'registration':
+        $title = 'Registration';
+        break;
+    case 'dashboard':
+        $title = 'Dashboard';
+        break;
+    case 'student':
+        $title = 'Student';
+        break;
+    default:
+        $title = 'Not ound';
+  }
+?>
+  <title><?php echo $title;?> | Enrol</title>
   </head>
   <body>
 
@@ -26,8 +48,8 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
   <div class="container">
     <a class="navbar-brand" href="index.php">
-          <img src="assets/images/logo.png" alt="Logo">
-        </a>
+      <img src="assets/images/logo.png" alt="Logo">
+    </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -37,6 +59,9 @@
           <a class="nav-link" href="index.php">Home
                 <span class="sr-only">(current)</span>
               </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="?page=registation">Registation</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="?page=student">Student</a>

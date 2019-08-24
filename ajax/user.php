@@ -23,7 +23,6 @@ if ($result->num_rows > 0) {
     $phone = $row['phone'];
     $email = $row['email'];
     $active = $row['active'];
-    $password = $row['password'];
 
   }
 } else {
@@ -86,7 +85,7 @@ $conn->close();
 		<div class="input-group-append">
 			<span class="input-group-text"><i class="fas fa-key"></i></span>
 		</div>
-		<input type="password" <?php echo $disabled;?> name="password" id="signuppassword" class="form-control input_pass" value="<?php echo $password; ?>" placeholder="password">
+		<input type="password" <?php echo $disabled;?> name="newpassword" id="signuppassword" class="form-control input_pass" value="" placeholder="New password">
 	</div>
 
 	<div class="form-group">

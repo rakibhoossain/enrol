@@ -100,18 +100,26 @@ if ($_POST['header']['action'] == 'signup' && $_POST['header']['table'] == 'user
 if ($_POST['header']['action'] == 'update' && $_POST['header']['table'] == 'user') {
   $id = $_POST['header']['id'];
  
-  $password = md5($_POST['data']['password']);
   $name = $_POST['data']['name'];
+  $email = $_POST['data']['email'];
+  $username = $_POST['data']['username'];
+  
   $designation = $_POST['data']['designation'];
-
+  $phone = $_POST['data']['phone'];
   $active = ($_POST['data']['active'] == 1)? '1' : '0';
 
-  $stmt = $conn->prepare("UPDATE user SET name = ?,email = ?,username = ?,password = ?,designation = ?,phone = ?,active = ? WHERE id=?");
+  if ( isset($_POST['data']['password']) ) {
+    $password = md5($_POST['data']['password']);
+    $stmt = $conn->prepare("UPDATE user SET name = ?,email = ?,username = ?,password = ?,designation = ?,phone = ?,active = ? WHERE id=?");
+    $stmt->bind_param("sssssssi", $name, $email, $username, $password, $designation, $phone,  $active, $id);
+  }
 
-  $stmt->bind_param("sssssssi", $name, $_POST['data']['email'], $_POST['data']['username'], $password, $designation, $_POST['data']['phone'],  $active, $id);
+  if ( !isset($_POST['data']['password']) ){
+    $stmt = $conn->prepare("UPDATE user SET name = ?,email = ?,username = ?,designation = ?,phone = ?,active = ? WHERE id=?");
+    $stmt->bind_param("ssssssi", $name, $email, $username, $designation, $phone,  $active, $id);
+  }
 
-  $stmt->execute(); 
-
+  $stmt->execute();
   if ($stmt->affected_rows == 1) {
     if(session_id() == '' || !isset($_SESSION)) {
       session_start();

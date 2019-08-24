@@ -13,12 +13,9 @@
 
 
 <?php
-    if ((!isset($_GET['admin']))) require_once('welcome.php');
+    if ((!isset($_GET['admin']))) require_once('user.php');
      if(isset($_GET['admin'])) {
       $page=$_GET['admin'];
-       if ($page == 'user'){
-        require_once('user.php');
-      }
       if ($page == 'student'){
         include 'student.php';
       }

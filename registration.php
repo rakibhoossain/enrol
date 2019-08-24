@@ -1,16 +1,16 @@
+<div class="col-md-12">
+  <header class="card-header section-header">
+    <h4 class="card-title mt-2 text-center">Registation form</h4>
+  </header>
+</div>
 <div class="container">
   <div class="row">
-
-       <header class="col-12">
-          <!-- <a href="" class="float-right btn btn-outline-primary mt-1">Log in</a> -->
-          <h4 class="card-title mt-2 text-center">Registation form</h4>
-        </header>
-    <div class="col-md-4">
+    <div class="col-md-3">
       <div class="banner">
-        <img src="assets/images/banner.png">
+        <img src="assets/images/banner.png" class="mx-auto d-block img-circle">
       </div>
     </div>
-    <div class="col-md-8">
+    <div class="col-md-9">
 
         <article id="registation_page">
 
@@ -86,11 +86,15 @@
 
             <div class="form-row">
               <div class="col form-group">
-                <label for="image"><img src="assets/images/thumb.jpg" class="rounded float-left" alt="student photo" id="img_holder" width="300" height="300"></label>
+                <label for="image"><img src="assets/images/thumb.jpg" class="rounded float-left" alt="student photo" id="img_holder" width="200" height="200"></label>
                 <input type="file" class="form-control-file" id="image" accept=".png, .jpg, .jpeg">
               </div>
             </div>
-            <button type="button" id="submitButton" class="btn btn-primary">Enroll</button>                                        
+            <div class="form-row">
+              <div class="col form-group text-center">
+                <button type="button" id="submitButton" class="btn btn-primary">Registration</button>
+              </div>
+            </div>                                        
           </form>
         </article>
 

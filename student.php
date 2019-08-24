@@ -5,7 +5,7 @@
   <div class="row justify-content-center">
     <div class="col-md-12">
 
-        <header class="card-header">
+        <header class="card-header section-header">
           <h4 class="card-title mt-2 text-center">Students</h4>
         </header>
         

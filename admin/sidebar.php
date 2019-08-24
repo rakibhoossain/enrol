@@ -22,13 +22,7 @@ $sessionUserID = isset($_SESSION['id'])? $_SESSION['id'] : '';
 
   <ul class="nav flex-column bg-white mb-0">
     <li class="nav-item">
-      <a href="?page=dashboard" class="nav-link text-dark font-italic bg-light">
-        <i class="fa fa-th-large mr-3 text-primary fa-fw"></i>
-        Home
-      </a>
-    </li>
-    <li class="nav-item">
-      <a href="?page=dashboard&admin=user" class="nav-link text-dark font-italic">
+      <a href="?page=dashboard" class="nav-link text-dark font-italic">
         <i class="fa fa-address-card mr-3 text-primary fa-fw"></i>
         User <span class="badge badge-secondary"><?php echo get_count('user', $conn); ?></span>
       </a>
@@ -43,6 +37,50 @@ $sessionUserID = isset($_SESSION['id'])? $_SESSION['id'] : '';
   
 </div>
 <!-- End vertical navbar -->
+
+
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="userModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-center" id="userModelTitle">Student Profile</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" id="submitButton" class="btn btn-primary">Update</button>
+
+  <?php 
+      if(session_id() == '' || !isset($_SESSION)) {
+        session_start();
+      }
+      $disabled = 'disabled';
+      $adminCanEdit = 'disabled';
+      if ($_SESSION['username'] == $username || $_SESSION['designation'] == 'admin' ) {
+        $disabled = '';
+      }
+    if ($_SESSION['designation'] == 'admin' ) {
+        $adminCanEdit = '';
+      }
+  ?>
+        <button type="button" id="deletButton" class="btn btn-danger" <?php echo $disabled;?>>Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+ 
+
 
 <!-- Get user -->
 <?php

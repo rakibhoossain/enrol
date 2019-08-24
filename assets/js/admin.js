@@ -26,6 +26,17 @@ $(function() {
 
   // });
 
+  if ($("#userList thead").length) { 
+    $('#userList').DataTable();
+  }
+
+
+
+
+
+
+
+
 //userShow
   $(document).delegate( "#userList tbody tr", "click", function(e) { 
     const userid = $(this).attr("val");
@@ -98,6 +109,21 @@ function deleteStudent(e){
 }
 
 
+
+
+    // var formData = new FormData();
+    // formData.append( 'header[table]', 'user' );
+    // formData.append( 'header[action]', 'update' );
+    // formData.append( 'header[id]', $('#userUpdate').attr("val") );
+    // formData.append( 'data[name]', $('#userUpdate #signupname').val() );
+    // formData.append( 'data[email]', $('#userUpdate #signupemail').val() );
+    // formData.append( 'data[phone]', $('#userUpdate #signupphone').val() );
+    // formData.append( 'data[designation]', $('#userUpdate #signupdesignation').find(":selected").val() );
+    // formData.append( 'data[username]', $('#userUpdate #signupusername').val() );
+    // formData.append( 'data[password]', $('#userUpdate #signuppassword').val() );
+    // formData.append( 'data[active]', $('#userUpdate #activeUser:checked').val() );
+
+
 /*============================
 =========== Update user
 ==============================
@@ -105,6 +131,8 @@ function deleteStudent(e){
 function updateUser(e){
 
     var formData = new FormData();
+    var password = $('#userUpdate #signuppassword').val();
+
     formData.append( 'header[table]', 'user' );
     formData.append( 'header[action]', 'update' );
     formData.append( 'header[id]', $('#userUpdate').attr("val") );
@@ -113,7 +141,9 @@ function updateUser(e){
     formData.append( 'data[phone]', $('#userUpdate #signupphone').val() );
     formData.append( 'data[designation]', $('#userUpdate #signupdesignation').find(":selected").val() );
     formData.append( 'data[username]', $('#userUpdate #signupusername').val() );
-    formData.append( 'data[password]', $('#userUpdate #signuppassword').val() );
+
+if (password) {formData.append( 'data[password]', password );}
+
     formData.append( 'data[active]', $('#userUpdate #activeUser:checked').val() );
 
     $.ajax({

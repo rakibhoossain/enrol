@@ -119,7 +119,7 @@ $conn->close();
 
   <div class="form-row">
     <div class="col form-group">
-      <label for="image"><img src="<?php echo $img; ?>" class="rounded float-left" alt="student photo" id="img_holder" width="300" height="300"></label>
+      <label for="image"><img src="<?php echo $img; ?>" class="rounded float-left" alt="student photo" id="img_holder" width="200" height="200"></label>
       <input type="file" class="form-control-file" id="image" accept=".png, .jpg, .jpeg">
     </div>
   </div>
