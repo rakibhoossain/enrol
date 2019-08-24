@@ -27,9 +27,6 @@
     case 'home':
         $title = 'Home';
         break;
-    case 'registration':
-        $title = 'Registration';
-        break;
     case 'dashboard':
         $title = 'Dashboard';
         break;
@@ -55,10 +52,8 @@
         </button>
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav ml-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="index.php">Home
-                <span class="sr-only">(current)</span>
-              </a>
+        <li class="nav-item <?php echo ($page == 'home')? 'active' : '';?>">
+          <a class="nav-link" href="index.php">Home</a>
         </li>
 
         <?php
@@ -66,14 +61,10 @@
             session_start();
         }?>
 <?php if(isset($_SESSION["username"])): ?>
-
-        <li class="nav-item">
-          <a class="nav-link" href="?page=registration">Registation</a>
-        </li>
-        <li class="nav-item">
+        <li class="nav-item <?php echo ($page == 'student')? 'active' : '';?>">
           <a class="nav-link" href="?page=student">Student</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item <?php echo ($page == 'dashboard')? 'active' : '';?>">
           <a class="nav-link" href="?page=dashboard">Dashboard</a>
         </li>
 <?php endif; ?>
