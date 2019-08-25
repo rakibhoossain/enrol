@@ -93,7 +93,7 @@ $( document ).ready( function( $ ) {
     var file = $('#image')[0].files[0],
     formData = new FormData();
 
-    console.log('File name'+ file);
+    // console.log('File name'+ file);
 
     formData.append( 'header[table]', 'student' );
     formData.append( 'header[action]', $('#modelForm').attr("act") );
