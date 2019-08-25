@@ -47,7 +47,7 @@ if ($result->num_rows > 0) {
 $conn->close();
 ?>
 
-<form method="post" enctype="multipart/form-data" id="modelForm" data="<?php echo $userid; ?>" act="update">
+<form method="post" enctype="multipart/form-data" id="modelForm" data="<?php echo $userid; ?>" valid="true" act="update">
   <div class="form-row">
     <div class="form-group col">
       <label for="class">Class</label>

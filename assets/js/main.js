@@ -79,12 +79,13 @@ $( document ).ready( function( $ ) {
   });
 
 
+//student insert
   $("#studentModel").delegate( "#submitButton", "click", function(e) {
-    insertStudent(e);
+    if( validateModelForm() && $('#modelForm').attr('valid') == 'true' ) insertStudent(e);
   }); 
 
   $("#registation_page").delegate( "#submitButton", "click", function(e) {
-    insertStudent(e);
+    if( validateModelForm() && $('#modelForm').attr('valid') == 'true' ) insertStudent(e);
   }); 
 
 
@@ -134,7 +135,7 @@ $('#preloader').show();
   }
 
 // Delete student
-  $("#studentModel").delegate( "#deletButton", "click", function() { 
+  $("#studentModel, #studentModel").delegate( "#deletButton", "click", function() { 
      $('#preloader').show();
     var formData = new FormData();
 
@@ -168,6 +169,10 @@ $('#preloader').show();
 $(document).delegate( "#image", "change", function() {
 
     var imgPath = $(this)[0].value;
+
+console.log("Image: "+ this);
+
+
     var extn = imgPath.substring(imgPath.lastIndexOf('.') + 1).toLowerCase();
 
     if (extn == "png" || extn == "jpg" || extn == "jpeg") {
@@ -236,6 +241,87 @@ function city_list(val,el)
      }
     });
 }
+
+
+
+// model form validate
+function validateModelForm(){
+
+var ok = true;
+
+  var name = $('#modelForm #name').val();
+  var subject = $('#modelForm #subject').val();
+  var sclass = $('#modelForm #class').val();
+  var birthDay = $('#modelForm #birthDay').val();
+  var gender = $("#modelForm input[name='gender']:checked").val();
+  var phone = $('#modelForm #phone').val();
+  var email = $('#modelForm #email').val();
+  var city = $('#modelForm #city').val();
+  var address = $('#modelForm #address').val();
+
+  ok = (name)? changeInputColor('#modelForm #name', true, ok) : changeInputColor('#modelForm #name', false, ok);
+  ok = (subject)? changeInputColor('#modelForm #subject', true, ok) : changeInputColor('#modelForm #subject', false, ok);
+  ok = (sclass)? changeInputColor('#modelForm #class', true, ok) : changeInputColor('#modelForm #class', false, ok);
+//   ok = validateStRole(roll, '#modelForm #roll', ok);
+
+// console.log(validateStRole(roll, '#modelForm #roll', ok));
+
+  ok = (birthDay)? changeInputColor('#modelForm #birthDay', true, ok) : changeInputColor('#modelForm #birthDay', false, ok);
+  ok = (gender)? changeInputColor("#modelForm input[name='gender']", true, ok) : changeInputColor("#modelForm input[name='gender']", false, ok);
+  ok = (phone)? changeInputColor('#modelForm #phone', true, ok) : changeInputColor('#modelForm #phone', false, ok);
+
+//optional
+if (email){ok = (email && validateEmail(email))? changeInputColor('#modelForm #email', true, ok) : changeInputColor('#modelForm #email', false, ok);} 
+else{$('#modelForm #email').removeClass('is-invalid').removeClass('is-valid'); ok = (ok)? true: false;}
+  
+  ok = (city)? changeInputColor('#modelForm #city', true, ok) : changeInputColor('#modelForm #city', false, ok);
+  ok = (address)? changeInputColor('#modelForm #address', true, ok) : changeInputColor('#modelForm #address', false, ok);
+
+  return ok;
+}
+//model form color change
+function changeInputColor(selector, valid ,ok){
+  if (valid) {$(selector).removeClass('is-invalid').addClass('is-valid'); return (ok)? true: false;}
+  else{ $(selector).removeClass('is-valid').addClass('is-invalid'); return false;}
+}
+//email validator
+function validateEmail(email) {
+  var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+  return emailReg.test( email );
+}
+
+
+
+// unique roll student
+  $("#modelForm, #studentModel").delegate( "#roll", "keyup", function() { 
+
+    var strol = $('#modelForm #roll').val();
+
+    $('#preloader').show();
+
+    if (strol) {
+      $.ajax({
+       type: 'post',
+       url: 'ajax/validator.php',
+       data: {
+        uniqueRoll:strol
+      },
+      async: true,
+       success: function (response) {
+        $('#preloader').hide();
+        if (response == 'success') {
+          $('#modelForm').attr('valid', 'true');
+          $('#modelForm #roll').removeClass('is-invalid').addClass('is-valid');
+        }else{
+          $('#modelForm').attr('valid', 'false');
+          $('#modelForm #roll').removeClass('is-valid').addClass('is-invalid')
+        }
+       }
+      });
+    }
+
+  });
+
 
 
 });

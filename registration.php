@@ -15,18 +15,16 @@
 
         <article id="registation_page">
 
-          <form method="post" enctype="multipart/form-data" id="modelForm" data="" act="insert">
+          <form method="post" enctype="multipart/form-data" id="modelForm" data="" act="insert" valid="true">
             <div class="form-row">
               <div class="form-group col">
                 <label for="class">Class</label>
                 <select id="class" class="form-control">
-                  <option value="">Class..</option>
                 </select>
               </div>
               <div class="form-group col">
                 <label for="subject">Subject</label>
                 <select id="subject" class="form-control">
-                  <option value="">Subject..</option>
                 </select>
               </div>
               <div class="col form-group">
@@ -76,7 +74,6 @@
               <div class="col-md-6 form-group">
                 <label for="city">City</label>
                   <select id="city" class="form-control">
-                    <option value="" selected >City</option>
                 </select>
               </div> <!-- form-group end.// -->
               <div class="col form-group">
