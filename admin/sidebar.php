@@ -46,7 +46,7 @@ $sessionUserID = isset($_SESSION['id'])? $_SESSION['id'] : '';
     ?>
       <li class="nav-item">
         <a href="?page=dashboard&admin=course&name=<?php echo $row['sub_class'] ;?>" class="nav-link text-dark font-italic">
-          <i class="fa fa-address-card mr-3 text-primary fa-fw"></i>
+          <i class="fas fa-graduation-cap mr-3 text-primary fa-fw"></i>
           <?php echo $row['sub_class'] ;?> <span class="badge badge-secondary"><?php echo get_course_count($row['sub_class'], $conn); ?></span>
         </a>
       </li>
@@ -56,7 +56,7 @@ $sessionUserID = isset($_SESSION['id'])? $_SESSION['id'] : '';
   ?>
      <li class="nav-item">
         <a href="#" class="nav-link text-dark font-italic" id="add_course">
-          <i class="fa fa-address-card mr-3 text-primary fa-fw"></i>ADD course
+          <i class="fas fa-plus mr-3 text-primary fa-fw"></i>ADD course
         </a>
       </li>
   </ul>
@@ -65,14 +65,11 @@ $sessionUserID = isset($_SESSION['id'])? $_SESSION['id'] : '';
   <ul class="nav flex-column bg-white mb-0">
       <li class="nav-item">
         <a href="?page=dashboard&admin=city" class="nav-link text-dark font-italic">
-          <i class="fa fa-address-card mr-3 text-primary fa-fw"></i>
+          <i class="fas fa-city mr-3 text-primary fa-fw"></i>
           City <span class="badge badge-secondary"><?php echo get_count('city', $conn); ?></span>
         </a>
       </li>
   </ul>
-
-
-  
 </div>
 <!-- End vertical navbar -->
 
