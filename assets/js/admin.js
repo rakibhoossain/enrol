@@ -181,13 +181,36 @@ $( document ).ready( function( $ ) {
       }
     });
 
+  });
+
+  $(document).delegate( "#delete_course", "click", function(e) {
+    e.preventDefault();
+
+    $('#preloader').show();
+    $.ajax({
+      url: 'admin/course.php',
+      type: 'post',
+      data: {delCourseGetByCnme: $('#delete_course').attr('val')},
+      success: function(response){ 
+          $('#preloader').hide();
+          if (response == 'success') {
+            window.location.reload();
+          }else{
+            console.log('Please try again' + response);
+          }
+      }
+    });
+
   }); 
 
 //insert subject
   $('#addSubjectModel').delegate( "#saveButton", "click", function(e) {
     insertSubject(e);
   });
-
+//insert course
+  $('#addCourseModel').delegate( "#saveButton", "click", function(e) {
+    insertCourse(e);
+  });
 //update
   $('#cityModel').delegate( "#submitButton", "click", function(e) { 
     updateCity('update', e);
@@ -247,6 +270,36 @@ function showCity(id, e){
       formData.append( 'header[action]', 'insert' );
 
       formData.append( 'data[name]', $('#addCityModel #add_city_name').val() );
+
+      $.ajax({
+        url        : 'admin/course.php',
+        type       : 'POST',
+        contentType: false,
+        cache      : false,
+        processData: false,
+        data       : formData,
+        success    : function ( data )
+        {
+           $('#preloader').hide();
+          if (data == 'success') {
+            window.location.reload();
+          }else{
+            console.log('Please try again' + data);
+          }
+
+         }
+      });
+  }
+
+  function insertCourse(e){
+     $('#preloader').show();
+
+      var formData = new FormData();
+
+      formData.append( 'header[table]', 'subject' );
+      formData.append( 'header[action]', 'addCourse' );
+
+      formData.append( 'data[name]', $('#addCourseModelForm #add_course_name').val() );
 
       $.ajax({
         url        : 'admin/course.php',

@@ -6,68 +6,45 @@ if( isset($_GET['admin']) && isset($_GET['name']) ) {
 	require_once('core/connect.php');
 	$sql = "SELECT * FROM subject WHERE sub_class = '".$cls."'";
 	$result = $conn->query($sql);
-?>
 
+  if ($result->num_rows > 0) {
+  ?>
 
-<div class="container-fluid">
-  <div class="row justify-content-center">
-    <div class="col-md-12">
-
-        <header class="card-header section-header">
-          <h4 class="card-title mt-2 text-center">Course name: <?php echo $cls;?></h4>
-          <h4 class="text-center"><a href="#" id="add_subject" val="<?php echo $cls;?>">Add subject</a></h4>
-        </header>
-        
-        <article>
-
-
-<?php
-
-
-
-if ($result->num_rows > 0) {
-?>
-<div class="table-responsive">
-    <table class="table table-striped table-bordered" id="courseList" style="width:100%">
-    	<thead>
-    	    <tr>
-    	        <th>Code</th>
-    	        <th>Name</th>
-    	    </tr>
-    	</thead>
-    	<tbody>
-    <?php
-    while($row = $result->fetch_assoc()) {
-		echo '<tr val="'.$row['id'].'">';
-			echo "<td>".$row['sub_code']."</td>";
-			echo "<td>".$row['sub_name']."</td>";
-		echo '</tr>';
-    }
-    ?>
-    	</tbody>
-    </table>
-</div>
-
-
-<?php
-} else {
-   
-}
-
-$conn->close();
-?>
-
-
-
-        </article>
-
+  <div class="container-fluid">
+    <div class="row justify-content-center">
+      <div class="col-md-12">
+          <header class="card-header section-header">
+            <h4 class="card-title mt-2 text-center">Course name: <?php echo $cls;?></h4>
+            <h4 class="text-center"><a href="#" id="add_subject" val="<?php echo $cls;?>">Add subject</a> <a href="#" id="delete_course" val="<?php echo $cls;?>">Delete course</a></h4>
+          </header>
+          <article>
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered" id="courseList" style="width:100%">
+                	<thead>
+                	    <tr>
+                	        <th>Code</th>
+                	        <th>Name</th>
+                	    </tr>
+                	</thead>
+                	<tbody>
+                <?php
+                while($row = $result->fetch_assoc()) {
+            		echo '<tr val="'.$row['id'].'">';
+            			echo "<td>".$row['sub_code']."</td>";
+            			echo "<td>".$row['sub_name']."</td>";
+            		echo '</tr>';
+                }
+                ?>
+                	</tbody>
+                </table>
+            </div>
+          </article>
+      </div>
     </div>
-  </div>
-</div> 
-
-
-<?php
-
+  </div> 
+  <?php
+  }
+  $conn->close();
 }
 
 if ( isset($_POST['courseListByID']) ) {
@@ -228,6 +205,29 @@ if (isset($_POST['header']['action']) && $_POST['header']['action'] == 'delete' 
   $id = $_POST['header']['id'];
 
   $sql="DELETE FROM subject WHERE id='$id'";
+    if ($conn->query($sql) === TRUE) {
+        echo 'success';
+    } else {
+        echo 'error';
+    }
+}
+
+//add course
+if ( isset($_POST['header']['action']) && $_POST['header']['action'] == 'addCourse' && $_POST['header']['table'] == 'subject') {
+    require_once('../core/connect.php');
+    $a = 1;
+
+    $stmt = $conn->prepare("INSERT INTO subject (sub_code, sub_name, sub_class) VALUES (?, ?, ?)");
+    $stmt->bind_param("sss", $a, $a, $_POST['data']['name']);
+    $stmt->execute();
+    echo ($stmt->affected_rows == 1)? 'success' : 'error';
+    $stmt->close();
+}
+//delete course
+if ( isset($_POST['delCourseGetByCnme']) ) {
+  require_once('../core/connect.php');
+  $course = $_POST['delCourseGetByCnme'];
+  $sql="DELETE FROM subject WHERE sub_class='$course'";
     if ($conn->query($sql) === TRUE) {
         echo 'success';
     } else {
