@@ -34,6 +34,44 @@ $sessionUserID = isset($_SESSION['id'])? $_SESSION['id'] : '';
         </a>
     </li>
   </ul>
+
+
+  <p class="text-gray font-weight-bold text-uppercase px-3 small pb-4 mb-0">Course</p>
+  <ul class="nav flex-column bg-white mb-0">
+  <?php
+    $sql = "SELECT DISTINCT sub_class FROM subject";
+      $result = $conn->query($sql);
+      if ($result->num_rows > 0) {
+        while($row = $result->fetch_assoc()) {
+    ?>
+      <li class="nav-item">
+        <a href="?page=dashboard&admin=course&name=<?php echo $row['sub_class'] ;?>" class="nav-link text-dark font-italic">
+          <i class="fa fa-address-card mr-3 text-primary fa-fw"></i>
+          <?php echo $row['sub_class'] ;?> <span class="badge badge-secondary"><?php echo get_course_count($row['sub_class'], $conn); ?></span>
+        </a>
+      </li>
+    <?php
+         }
+      }
+  ?>
+     <li class="nav-item">
+        <a href="#" class="nav-link text-dark font-italic">
+          <i class="fa fa-address-card mr-3 text-primary fa-fw"></i>ADD course
+        </a>
+      </li>
+  </ul>
+
+  <p class="text-gray font-weight-bold text-uppercase px-3 small pb-4 mb-0">Others</p>
+  <ul class="nav flex-column bg-white mb-0">
+      <li class="nav-item">
+        <a href="?page=dashboard&admin=city" class="nav-link text-dark font-italic">
+          <i class="fa fa-address-card mr-3 text-primary fa-fw"></i>
+          City <span class="badge badge-secondary"><?php echo get_count('city', $conn); ?></span>
+        </a>
+      </li>
+  </ul>
+
+
   
 </div>
 <!-- End vertical navbar -->
@@ -65,20 +103,149 @@ $sessionUserID = isset($_SESSION['id'])? $_SESSION['id'] : '';
       if(session_id() == '' || !isset($_SESSION)) {
         session_start();
       }
-      $disabled = 'disabled';
-      $adminCanEdit = 'disabled';
+      $adminOrMember = false;
+      $admin = false;
       if ($_SESSION['username'] == $username || $_SESSION['designation'] == 'admin' ) {
-        $disabled = '';
+        $adminOrMember = true;
       }
     if ($_SESSION['designation'] == 'admin' ) {
-        $adminCanEdit = '';
+        $admin = true;
       }
+
+    if($admin) echo '<button type="button" id="deletButton" class="btn btn-danger">Delete</button>';
+
   ?>
-        <button type="button" id="deletButton" class="btn btn-danger" <?php echo $disabled;?>>Delete</button>
       </div>
     </div>
   </div>
 </div>
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="addCityModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-center" id="addCityModelTitle">Add City</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="cityModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-center" id="cityModelTitle">City</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" id="submitButton" class="btn btn-primary">Update</button>
+
+  <?php 
+      if(session_id() == '' || !isset($_SESSION)) {
+        session_start();
+      }
+      $adminOrMember = false;
+      $admin = false;
+      if ($_SESSION['username'] == $username || $_SESSION['designation'] == 'admin' ) {
+        $adminOrMember = true;
+      }
+    if ($_SESSION['designation'] == 'admin' ) {
+        $admin = true;
+      }
+
+    if($admin) echo '<button type="button" id="deletButton" class="btn btn-danger">Delete</button>';
+
+  ?>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="addSubjectModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-center" id="addSubjectModelTitle">Add Subject</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="subjectModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-center" id="subjectModelTitle">Subject</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" id="submitButton" class="btn btn-primary">Update</button>
+
+  <?php 
+      if(session_id() == '' || !isset($_SESSION)) {
+        session_start();
+      }
+      $adminOrMember = false;
+      $admin = false;
+      if ($_SESSION['username'] == $username || $_SESSION['designation'] == 'admin' ) {
+        $adminOrMember = true;
+      }
+    if ($_SESSION['designation'] == 'admin' ) {
+        $admin = true;
+      }
+
+    if($admin) echo '<button type="button" id="deletButton" class="btn btn-danger">Delete</button>';
+
+  ?>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
  
 
 
@@ -88,6 +255,11 @@ function get_count($table='user', $conn){
   
   $sql = "SELECT * FROM ".$table;
   $result = $conn->query($sql);
-  return (int) $result->num_rows;
-  // $conn->close();
+  return  ($result->num_rows > 0)? (int) $result->num_rows : 0;
+}
+
+function get_course_count($name, $conn){
+  $sql = "SELECT * FROM subject WHERE sub_class = '".$name."'";
+  $result = $conn->query($sql);
+  return  ($result->num_rows > 0)? (int) $result->num_rows : 0;
 }

@@ -20,6 +20,7 @@
               <div class="form-group col">
                 <label for="class">Class</label>
                 <select id="class" class="form-control">
+                  <option>--Class--</option>
                 </select>
               </div>
               <div class="form-group col">

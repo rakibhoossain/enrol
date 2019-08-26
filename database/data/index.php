@@ -109,7 +109,27 @@ function insert_dummy_subject($conn){
 		array( '4101', 'PUBLIC ADMINISTRATION', 'HONOURS'),
 		array( '4201', 'COMPUTER SCIENCE', 'HONOURS'),
 		array( '4301', 'BUSINESS ADMINISTRATION', 'HONOURS'),
-		array( '4401', 'ENVIRONMENTAL SCIENCES', 'HONOURS')
+		array( '4401', 'ENVIRONMENTAL SCIENCES', 'HONOURS'),
+
+		array( '5000', 'Science', 'Eleven'),
+		array( '5001', 'Arts', 'Eleven'),
+		array( '5002', 'Commerce', 'Eleven'),
+
+		array( '6000', 'Science', 'Twelve'),
+		array( '6001', 'Arts', 'Twelve'),
+		array( '6002', 'Commerce', 'Twelve'),
+
+		array( '7000', 'Science', 'BM'),
+		array( '7001', 'Arts', 'BM'),
+		array( '7002', 'Commerce', 'BM'),
+
+		array( '8000', 'BSc', 'Degree Pass'),
+		array( '8001', 'BBS', 'Degree Pass'),
+		array( '8002', 'BCOM', 'Degree Pass'),
+
+		array( '9000', 'BSc in CSE', 'Hons. Prof.'),
+		array( '9001', 'ECE', 'Hons. Prof.'),
+		array( '9002', 'BBA', 'Hons. Prof.'),
 	);	
 
 	$stmt = $conn->prepare("INSERT INTO subject (sub_code, sub_name, sub_class) VALUES (?, ?, ?)");

@@ -17,7 +17,13 @@
      if(isset($_GET['admin'])) {
       $page=$_GET['admin'];
       if ($page == 'student'){
-        include 'student.php';
+        require_once('student.php');
+      }
+      if ($page == 'course'){
+        require_once('course.php');
+      }
+      if ($page == 'city'){
+        require_once('city.php');
       }
     }
   ?>

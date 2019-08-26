@@ -1,10 +1,8 @@
 <?php
 if (isset($_POST['get_city'])) {
 	$city=$_POST['get_city'];
-	?>
-	<option value=" ">-City-</option>
-	<?php 
-	require '../core/connect.php';
+
+	require_once('../core/connect.php');
 
 	$sql = "SELECT name FROM city";
 	$result = $conn->query($sql);

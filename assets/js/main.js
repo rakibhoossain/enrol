@@ -61,8 +61,8 @@ $( document ).ready( function( $ ) {
              // Add response in Modal body
             $('#studentModel .modal-body').html(response);
 
-            subject_list($('#class').val(), $('#subject'));
-            class_list($('#class').val(), $('#class'));
+            // subject_list($('#class').val(), $('#subject'));
+            // class_list($('#class').val(), $('#class'));
             city_list($('#city').val(), $('#city'));
 
             $('input.datepicker').Zebra_DatePicker({

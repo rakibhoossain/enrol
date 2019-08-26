@@ -43,8 +43,6 @@ if ($result->num_rows > 0) {
 } else {
    
 }
-
-$conn->close();
 ?>
 
 <form method="post" enctype="multipart/form-data" id="modelForm" data="<?php echo $userid; ?>" valid="true" act="update">
@@ -52,13 +50,33 @@ $conn->close();
     <div class="form-group col">
       <label for="class">Class</label>
       <select id="class" class="form-control">
-        <option selected value="<?php echo $class; ?>"><?php echo $class; ?></option>
+      <?php
+        $sql = "SELECT DISTINCT sub_class FROM subject";
+        $result = $conn->query($sql);
+        if ($result->num_rows > 0) {
+          while($row = $result->fetch_assoc()) {
+        ?>
+          <option <?php echo ( $row['sub_class'] == $class )? 'selected' : ''; ?> value="<?php echo $row['sub_class'] ;?>"> <?php echo $row['sub_class'];?></option>
+        <?php
+           }
+        }
+      ?>
       </select>
     </div>
     <div class="form-group col">
       <label for="subject">Subject</label>
       <select id="subject" class="form-control">
-        <option selected value="<?php echo $subject; ?>"><?php echo $subject; ?></option>
+      <?php
+        $sql = "SELECT * FROM subject WHERE sub_class = '".$class."'";
+        $result = $conn->query($sql);
+        if ($result->num_rows > 0) {
+          while($row = $result->fetch_assoc()) {
+        ?>
+          <option <?php echo ( $row['sub_name'] == $subject )? 'selected' : ''; ?> value="<?php echo $row['sub_name'] ;?>"><?php echo $row['sub_name'];?></option>
+      <?php
+          }
+        }
+      ?>
       </select>
     </div>
     <div class="col form-group">
