@@ -16,6 +16,11 @@ if($conn->query("SELECT * FROM user") == false){
 	create_user_table($conn);
 }
 
+if($conn->query("SELECT * FROM subject") == false){
+	drop_subject_table($conn);
+	create_subject_table($conn);
+}
+
 function drop_city_table($conn){
 	$drop_city = "DROP TABLE IF EXISTS `city`";
 	if ($conn->query($drop_city) === TRUE) {
@@ -114,3 +119,30 @@ function create_user_table($conn){
 }
 
 
+function drop_subject_table($conn){
+	$drop_user = "DROP TABLE IF EXISTS `subject`";
+
+	if ($conn->query($drop_user) === TRUE) {
+	    echo "Table subject delete successfully";
+	} else {
+	    echo "Error deleting subject table: " . $conn->error;
+	}
+}
+
+function create_subject_table($conn){
+	$create_subject = "
+	CREATE TABLE IF NOT EXISTS `subject` (
+	  `id` int(10) NOT NULL AUTO_INCREMENT,
+	  `sub_code` varchar(100) NOT NULL,
+	  `sub_name` varchar(100) NOT NULL,
+	  `sub_class` varchar(100) DEFAULT NULL,
+	  PRIMARY KEY (`id`),
+	  UNIQUE KEY `sub_code` (`sub_code`)
+	) ENGINE=MyISAM AUTO_INCREMENT=43 DEFAULT CHARSET=latin1";
+
+	if ($conn->query($create_subject) === TRUE) {
+	    echo "Table subject created successfully";
+	} else {
+	    echo "Error creating subject table: " . $conn->error;
+	}
+}

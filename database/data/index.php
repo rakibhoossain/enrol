@@ -13,6 +13,9 @@ if($conn->query("SELECT * FROM student") == true){
 if($conn->query("SELECT * FROM user") == true){
 	insert_dummy_user($conn);
 }
+if($conn->query("SELECT * FROM subject") == true){
+	insert_dummy_subject($conn);
+}
 
 function insert_city_names($conn){
 	$cities = array('BAGERHAT', 'BANDARBAN', 'BARGUNA', 'BARISAL', 'BHOLA', 'BOGRA', 'BRAHMANBARIA', 'CHANDPUR', 'CHAPAINAWABGANJ', 'CHITTAGONG', 'CHUADANGA', 'COMILLA', 'COX\'S BAZAR', 'DHAKA', 'DINAJPUR', 'FARIDPUR', 'FENI', 'GAIBANDHA', 'GAZIPUR', 'GOPALGANJ', 'HABIGANJ', 'JAMALPUR', 'JESSORE', 'JHALAKATI', 'JHENAIDAH', 'JOYPURHAT', 'KHAGRACHHARI', 'KHULNA', 'KISHOREGANJ', 'KURIGRAM', 'KUSHTIA', 'LAKSHMIPUR', 'LALMONIRHAT', 'MADARIPUR', 'MAGURA', 'MANIKGANJ', 'MEHERPUR', 'MOULVIBAZAR', 'MUNSHIGANJ', 'MYMENSINGH', 'NAOGAON', 'NARAIL', 'NARAYANGANJ', 'NARSINGDI', 'NATORE', 'NETROKONA', 'NILPHAMARI', 'NOAKHALI', 'PABNA', 'PANCHAGARH', 'PATUAKHALI', 'PIROJPUR', 'RAJBARI', 'RAJSHAHI', 'RANGAMATI', 'RANGPUR', 'SATKHIRA', 'SHARIATPUR', 'SHERPUR', 'SIRAJGANJ', 'SUNAMGANJ', 'SYLHET', 'TANGAIL', 'THAKURGAON',);
@@ -68,4 +71,53 @@ function insert_dummy_student($conn){
     printf("%d Student inserted</br>", $stmt->affected_rows);
     $stmt->close();
     // $conn->close();
+}
+
+
+function insert_dummy_subject($conn){
+	$subjects = array
+	(
+		array( '1001', 'BENGALI', 'HONOURS'),
+		array( '1101', 'ENGLISH', 'HONOURS'),
+		array( '1201', 'ARABIC', 'HONOURS'),
+		array( '1501', 'HISTORY', 'HONOURS'),
+		array( '1601', 'ISLAMIC HISTORY & CULTURE', 'HONOURS'),
+		array( '1701', 'PHILOSOPHY', 'HONOURS'),
+		array( '1801', 'ISLAMIC STUDIES', 'HONOURS'),
+		array( '1901', 'POLITICAL SCIENCE', 'HONOURS'),
+		array( '2001', 'SOCIOLOGY', 'HONOURS'),
+		array( '2101', 'SOCIAL WORK', 'HONOURS'),
+		array( '2201', 'ECONOMICS', 'HONOURS'),
+		array( '2301', 'MARKETING', 'HONOURS'),
+		array( '2401', 'FINANCE & BANKING', 'HONOURS'),
+		array( '2501', 'ACCOUNTING', 'HONOURS'),
+		array( '2601', 'MANAGEMENT', 'HONOURS'),
+		array( '2701', 'PHYSICS', 'HONOURS'),
+		array( '2801', 'CHEMISTRY', 'HONOURS'),
+		array( '2901', 'BIO CHEMISTRY', 'HONOURS'),
+		array( '3001', 'BOTANY', 'HONOURS'),
+		array( '3101', 'ZOOLOGY', 'HONOURS'),
+		array( '3201', 'GEOGRAPHY', 'HONOURS'),
+		array( '3301', 'SOIL SCIENCE', 'HONOURS'),
+		array( '3401', 'PSYCHOLOGY', 'HONOURS'),
+		array( '3501', 'HOME ECONOMICS', 'HONOURS'),
+		array( '3601', 'STATISTICS', 'HONOURS'),
+		array( '3701', 'ATHEMATICS', 'HONOURS'),
+		array( '3801', 'BRARY AND INFORMATION SCIENCE', 'HONOURS'),
+		array( '3901', 'ACHELOR OF EDUCATION', 'HONOURS'),
+		array( '4001', 'ANTHROPOLOGY', 'HONOURS'),
+		array( '4101', 'PUBLIC ADMINISTRATION', 'HONOURS'),
+		array( '4201', 'COMPUTER SCIENCE', 'HONOURS'),
+		array( '4301', 'BUSINESS ADMINISTRATION', 'HONOURS'),
+		array( '4401', 'ENVIRONMENTAL SCIENCES', 'HONOURS')
+	);	
+
+	$stmt = $conn->prepare("INSERT INTO subject (sub_code, sub_name, sub_class) VALUES (?, ?, ?)");
+
+	foreach ($subjects as $subject) {
+		$stmt->bind_param("sss",  $subject[0], $subject[1], $subject[2]);
+		$stmt->execute();
+	}
+	echo $stmt->affected_rows .'insert Subject</br>';
+	$stmt->close();
 }

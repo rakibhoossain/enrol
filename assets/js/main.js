@@ -252,6 +252,7 @@ var ok = true;
   var name = $('#modelForm #name').val();
   var subject = $('#modelForm #subject').val();
   var sclass = $('#modelForm #class').val();
+  // var roll = $('#modelForm #roll').val();
   var birthDay = $('#modelForm #birthDay').val();
   var gender = $("#modelForm input[name='gender']:checked").val();
   var phone = $('#modelForm #phone').val();
@@ -262,9 +263,8 @@ var ok = true;
   ok = (name)? changeInputColor('#modelForm #name', true, ok) : changeInputColor('#modelForm #name', false, ok);
   ok = (subject)? changeInputColor('#modelForm #subject', true, ok) : changeInputColor('#modelForm #subject', false, ok);
   ok = (sclass)? changeInputColor('#modelForm #class', true, ok) : changeInputColor('#modelForm #class', false, ok);
-//   ok = validateStRole(roll, '#modelForm #roll', ok);
 
-// console.log(validateStRole(roll, '#modelForm #roll', ok));
+  // ok = (roll)? changeInputColor('#modelForm #roll', true, ok) : changeInputColor('#modelForm #roll', false, ok);
 
   ok = (birthDay)? changeInputColor('#modelForm #birthDay', true, ok) : changeInputColor('#modelForm #birthDay', false, ok);
   ok = (gender)? changeInputColor("#modelForm input[name='gender']", true, ok) : changeInputColor("#modelForm input[name='gender']", false, ok);
