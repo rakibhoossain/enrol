@@ -55,7 +55,7 @@ $sessionUserID = isset($_SESSION['id'])? $_SESSION['id'] : '';
       }
   ?>
      <li class="nav-item">
-        <a href="#" class="nav-link text-dark font-italic">
+        <a href="#" class="nav-link text-dark font-italic" id="add_course">
           <i class="fa fa-address-card mr-3 text-primary fa-fw"></i>ADD course
         </a>
       </li>
@@ -124,7 +124,7 @@ $sessionUserID = isset($_SESSION['id'])? $_SESSION['id'] : '';
 
 
 <!-- Modal -->
-<div class="modal fade" id="addCityModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal fade" id="addCityModel" tabindex="-1" role="dialog" aria-labelledby="addCityModelTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -134,8 +134,19 @@ $sessionUserID = isset($_SESSION['id'])? $_SESSION['id'] : '';
         </button>
       </div>
       <div class="modal-body">
-
-
+        <form method="post" id="addCityModelForm">
+            <div class="row">
+                <div class="col">
+                  <div class="form-group">
+                    <input type="text" class="form-control" id="add_city_name" placeholder="City name" value="">
+                  </div>
+                </div>
+            </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" id="saveButton" class="btn btn-primary">Save</button>     
       </div>
     </div>
   </div>
@@ -143,7 +154,7 @@ $sessionUserID = isset($_SESSION['id'])? $_SESSION['id'] : '';
 
 
 <!-- Modal -->
-<div class="modal fade" id="cityModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal fade" id="cityModel" tabindex="-1" role="dialog" aria-labelledby="cityModelTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -187,7 +198,7 @@ $sessionUserID = isset($_SESSION['id'])? $_SESSION['id'] : '';
 
 
 <!-- Modal -->
-<div class="modal fade" id="addSubjectModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal fade" id="addSubjectModel" tabindex="-1" role="dialog" aria-labelledby="addSubjectModelTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -197,16 +208,48 @@ $sessionUserID = isset($_SESSION['id'])? $_SESSION['id'] : '';
         </button>
       </div>
       <div class="modal-body">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" id="saveButton" class="btn btn-primary">Save</button>     
+      </div>
+    </div>
+  </div>
+</div>
 
-
+<!-- Modal -->
+<div class="modal fade" id="addCourseModel" tabindex="-1" role="dialog" aria-labelledby="addCourseModelTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-center" id="addCourseModelTitle">Add Course</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form method="post" id="addCourseModelForm">
+            <div class="row">
+                <div class="col">
+                  <div class="form-group">
+                    <input type="text" class="form-control" id="add_course_name" placeholder="Course name" value="">
+                  </div>
+                </div>
+            </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" id="saveButton" class="btn btn-primary">Save</button>     
       </div>
     </div>
   </div>
 </div>
 
 
+
 <!-- Modal -->
-<div class="modal fade" id="subjectModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal fade" id="subjectModel" tabindex="-1" role="dialog" aria-labelledby="subjectModelTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">

@@ -14,6 +14,7 @@ if( isset($_GET['admin']) ) {
 
         <header class="card-header section-header">
           <h4 class="card-title mt-2 text-center">City</h4>
+          <h4 class="text-center"><a href="#" id="add_city">Add city</a></h4>
         </header>
         
         <article>
@@ -26,7 +27,7 @@ if( isset($_GET['admin']) ) {
 if ($result->num_rows > 0) {
 ?>
 <div class="table-responsive">
-    <table class="table table-striped table-bordered" style="width:100%">
+    <table class="table table-striped table-bordered" id="cityList" style="width:100%">
     	<thead>
     	    <tr>
     	        <th>Name</th>
