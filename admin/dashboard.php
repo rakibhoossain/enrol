@@ -34,4 +34,3 @@
 
 </div>
 <!-- Page content holder end -->
-<?php //require_once('../footer.php'); ?>

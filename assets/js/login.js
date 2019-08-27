@@ -57,7 +57,7 @@ $( document ).ready( function( $ ) {
         if (data == 'success') {
         	window.location.reload();
         }else{
-        	console.log('Login failed');
+          $('#login #loginmessage').html('Login failed');
       	}
        }
     });
@@ -95,7 +95,7 @@ $( document ).ready( function( $ ) {
 	    	$('#login #loginusername').val($('#signup #signupusername').val());
 	    	$('#login #loginpassword').val($('#signup #signuppassword').val());
       	}else{
-      		$('#signup #signupmessage').html('Please try again' + data);
+      		$('#signup #signupmessage').html('Please try again');
       	}
        }
     });
@@ -103,38 +103,103 @@ $( document ).ready( function( $ ) {
   });
 
 
-  $(document).delegate( "#forget_req", "click", function() { 
+  $('#signup').delegate( "#signupemail", "keyup", function(e) { 
+    if( validEmail($(this).val() ,this) ) isExistLogin('user', 'email', $(this).val(), this);
+  });
+  $('#signup').delegate( "#signupusername", "keyup", function(e) { 
+    if( validUsername($(this).val() ,this) ) isExistLogin('user', 'username', $(this).val(), this);
+  });
 
-
-    var formData = new FormData();
-
-    formData.append( 'header[table]', 'user' );
-    formData.append( 'header[action]', 'forget' );
-    formData.append( 'data[email]', $('#forget #forgetemail').val() );
-
-//     $.ajax( {
-//       url        : 'database/save.php',
-//       type       : 'POST',
-//       contentType: false,
-//       cache      : false,
-//       processData: false,
-//       data       : formData,
-//       success    : function ( data )
-//       {
-//                     //Do something success-ish
-//                     console.log( 'Completed.' );
-//                     console.log( data );
-
-// window.location.reload();
-
-//                   }
-//                 } );
-
+  $('#forget').delegate( "#forget_req", "click", function(e) { 
+    isExistuserEmail('user', 'email', $('#forgetemail').val() );
+  });
+  $('#forget').delegate( "#forgetemail", "keyup", function(e) { 
+    validEmail($(this).val() ,this);
   });
 
 
+  function isExistLogin(table, colm, data, el){
+    if (data=='') {
+      $(el).removeClass('is-valid').addClass('is-invalid');
+      return 0;
+    }
+    var formData = new FormData();
+
+    formData.append( 'header[table]', 'user' );
+    formData.append( 'header[action]', 'isUserExist' );
+
+    formData.append( 'data[colm]', colm );
+    formData.append( 'data[val]', data );
+
+    $.ajax({
+      url        : 'ajax/validator.php',
+      type       : 'POST',
+      contentType: false,
+      cache      : false,
+      processData: false,
+      data       : formData,
+      success    : function ( data )
+      {
+        if (data == 'success') {
+          $(el).removeClass('is-invalid').addClass('is-valid');
+        }else{
+         $(el).removeClass('is-valid').addClass('is-invalid');
+        }
+      }
+    });
+  }
+
+
+  function isExistuserEmail(table, colm, data){
+    if (data=='') {
+      $('#forget #forgetMessage').html('Password not sent.');
+      return 0;
+    }
+    var formData = new FormData();
+
+    formData.append( 'header[table]', 'user' );
+    formData.append( 'header[action]', 'isUserExist' );
+
+    formData.append( 'data[colm]', colm );
+    formData.append( 'data[val]', data );
+
+    $.ajax({
+      url        : 'ajax/validator.php',
+      type       : 'POST',
+      contentType: false,
+      cache      : false,
+      processData: false,
+      data       : formData,
+      success    : function ( data )
+      {
+        if (data == 'error') {
+          $('#forget #forgetMessage').html('Password sent! Check your email!');
+        }else{
+         $('#forget #forgetMessage').html('Password not sent.');
+        }
+      }
+    });
+  }
 
 
 
+  function validEmail(email, el) {
+    var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+    if(emailReg.test( email )){
+      $(el).removeClass('is-invalid').addClass('is-valid');
+    }else{
+      $(el).removeClass('is-valid').addClass('is-invalid');
+    }
+    return emailReg.test( email );
+  }
+  function validUsername(username, el) {
+    var usernameReg = /^[a-zA-Z0-9_.-]+$/;
+    if(usernameReg.test( username )){
+      $(el).removeClass('is-invalid').addClass('is-valid');
+    }else{
+      $(el).removeClass('is-valid').addClass('is-invalid');
+    }
+    return usernameReg.test( username );
+  }
 
 });

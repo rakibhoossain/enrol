@@ -79,12 +79,8 @@ $( document ).ready( function( $ ) {
   });
 
 
-//student insert
-  $("#studentModel").delegate( "#submitButton", "click", function(e) {
-    if( validateModelForm() && $('#modelForm').attr('valid') == 'true' ) insertStudent(e);
-  }); 
-
-  $("#registation_page").delegate( "#submitButton", "click", function(e) {
+  //student insert
+  $("#registation_page, #studentModel").delegate( "#submitButton", "click", function(e) {
     if( validateModelForm() && $('#modelForm').attr('valid') == 'true' ) insertStudent(e);
   }); 
 
@@ -169,10 +165,6 @@ $('#preloader').show();
 $(document).delegate( "#image", "change", function() {
 
     var imgPath = $(this)[0].value;
-
-console.log("Image: "+ this);
-
-
     var extn = imgPath.substring(imgPath.lastIndexOf('.') + 1).toLowerCase();
 
     if (extn == "png" || extn == "jpg" || extn == "jpeg") {
@@ -314,7 +306,7 @@ function validateEmail(email) {
           $('#modelForm #roll').removeClass('is-invalid').addClass('is-valid');
         }else{
           $('#modelForm').attr('valid', 'false');
-          $('#modelForm #roll').removeClass('is-valid').addClass('is-invalid')
+          $('#modelForm #roll').removeClass('is-valid').addClass('is-invalid');
         }
        }
       });

@@ -53,6 +53,9 @@ exit(); }
 						<div class="d-flex justify-content-center mt-3">
 							<button type="button" name="login" class="btn login_btn" id="login_req">Login</button>
 						</div>
+						<div class="d-flex justify-content-center">
+							<div class="custom-control" id="loginmessage"></div>
+						</div>
 						<div class="mt-4">
 							<div class="d-flex justify-content-center links">
 								Don't have an account? <a href="#" id="singup_btn" class="ml-2">Register</a>
@@ -135,8 +138,7 @@ exit(); }
 							<input type="email" name="email" class="form-control input_pass" value="" id="forgetemail" placeholder="abc@def.com">
 						</div>
 						<div class="form-group">
-							<div class="custom-control">
-								Message
+							<div class="d-flex justify-content-center links" id="forgetMessage">
 							</div>
 						</div>
 						<div class="d-flex justify-content-center mt-3">

@@ -226,6 +226,17 @@ $( document ).ready( function( $ ) {
     updateSubject('delete', e)
   });
 
+  $('#subjectModel, #addSubjectModel').delegate( "#subject_code, #add_subject_code", "keyup", function(e) { 
+    isExistAdmin('subject', 'sub_code', $(this).val(), this );
+  });
+  $('#addCityModel, #cityModel').delegate( "#add_city_name, #city_name", "keyup", function(e) { 
+    isExistAdmin('city', 'name', $(this).val(), this );
+  });
+  $('#addCourseModel').delegate( "#add_course_name", "keyup", function(e) { 
+    isExistAdmin('subject', 'sub_class', $(this).val(), this );
+  });
+
+
 
   /*============================
   =========== City Model
@@ -419,6 +430,44 @@ function showCity(id, e){
       });
   }
 
+
+  function isExistAdmin(table, colm, data, el){
+  if (data=='') {
+    $(el).removeClass('is-valid').addClass('is-invalid');
+    return 0;
+  }
+
+      $('#preloader').show();
+
+      var formData = new FormData();
+
+      formData.append( 'header[table]', table );
+      formData.append( 'header[action]', 'isExist' );
+
+      formData.append( 'data[colm]', colm );
+      formData.append( 'data[val]', data );
+
+      $.ajax({
+        url        : 'admin/course.php',
+        type       : 'POST',
+        contentType: false,
+        cache      : false,
+        processData: false,
+        data       : formData,
+        success    : function ( data )
+        {
+           $('#preloader').hide();
+          if (data == 'success') {
+
+            $(el).removeClass('is-invalid').addClass('is-valid');
+
+          }else{
+           $(el).removeClass('is-valid').addClass('is-invalid');
+          }
+
+         }
+      });
+  }
 
   
 });
