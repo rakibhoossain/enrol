@@ -158,7 +158,7 @@ $( document ).ready( function( $ ) {
     var formData = new FormData();
 
     formData.append( 'header[table]', 'user' );
-    formData.append( 'header[action]', 'isUserExist' );
+    formData.append( 'header[action]', 'isUserEmailExist' );
 
     formData.append( 'data[colm]', colm );
     formData.append( 'data[val]', data );
@@ -172,7 +172,7 @@ $( document ).ready( function( $ ) {
       data       : formData,
       success    : function ( data )
       {
-        if (data == 'error') {
+        if (data == 'success') {
           $('#forget #forgetMessage').html('Password sent! Check your email!');
         }else{
          $('#forget #forgetMessage').html('Password not sent.');
