@@ -14,7 +14,14 @@ if( isset($_GET['admin']) && isset($_GET['name']) ) {
             <h4 class="card-title mt-2 text-center">Course name: <?php echo $cls;?></h4>
             <h4 class="text-center">
               <button  class="btn btn-primary" id="add_subject" val="<?php echo $cls;?>"><i class="fas fa-plus"></i> Add subject</button>
-              <button  class="btn btn-danger" id="delete_course" val="<?php echo $cls;?>"><i class="fas fa-trash"></i> Delete course</button>
+                            <?php 
+                if(session_id() == '' || !isset($_SESSION)) {
+                  session_start();
+                }
+                if ($_SESSION['designation'] == 'admin' ) {
+                  echo '<button  class="btn btn-danger" id="delete_course" val="<?php echo $cls;?>"><i class="fas fa-trash"></i> Delete course</button>';
+                }
+              ?>    
             </h4>
           </header>
           <article>
