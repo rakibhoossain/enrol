@@ -1,2 +1,0 @@
-Problem No. 5:
-Enrollment system:In this system, administration keeps studens general information during admission. Administration can make any query regarding a student using a search option and also adding new record, save record, update record, delete record and record navigation.

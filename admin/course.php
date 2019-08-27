@@ -12,7 +12,10 @@ if( isset($_GET['admin']) && isset($_GET['name']) ) {
       <div class="col-md-12">
           <header class="card-header section-header">
             <h4 class="card-title mt-2 text-center">Course name: <?php echo $cls;?></h4>
-            <h4 class="text-center"><a href="#" id="add_subject" val="<?php echo $cls;?>">Add subject</a> <a href="#" id="delete_course" val="<?php echo $cls;?>">Delete course</a></h4>
+            <h4 class="text-center">
+              <button  class="btn btn-primary" id="add_subject" val="<?php echo $cls;?>"><i class="fas fa-plus"></i> Add subject</button>
+              <button  class="btn btn-danger" id="delete_course" val="<?php echo $cls;?>"><i class="fas fa-trash"></i> Delete course</button>
+            </h4>
           </header>
           <article>
             <div class="table-responsive">

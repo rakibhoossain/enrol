@@ -14,12 +14,12 @@ if( isset($_GET['admin']) ) {
 
         <header class="card-header section-header">
           <h4 class="card-title mt-2 text-center">City</h4>
-          <h4 class="text-center"><a href="#" id="add_city">Add city</a></h4>
+          <h4 class="text-center">
+            <button  class="btn btn-primary" id="add_city"><i class="fas fa-plus"></i> Add city</button>
+          </h4>
         </header>
-        
+
         <article>
-
-
 <?php
 
 

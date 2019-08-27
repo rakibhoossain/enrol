@@ -29,10 +29,18 @@ $( document ).ready( function( $ ) {
 
   //userDelete
   $("#userModel").delegate( "#deletButton", "click", function(e) { 
-      deleteStudent(e);
+    if(confirm("Are you sure you want to delete this?")){ deleteUser(e); }
   }); 
 
-
+  $('#userModel').delegate( "#signupemail", "keyup", function(e) { 
+    if( validEmail($(this).val() ,this) ) isExistLogin('user', 'email', $(this).val(), this);
+  });
+  $('#userModel').delegate( "#signupusername", "keyup", function(e) { 
+    if( validUsername($(this).val() ,this) ) isExistLogin('user', 'username', $(this).val(), this);
+  });
+  $('#userModel').delegate( "#signupphone", "keyup", function(e) { 
+    this.value = this.value.replace(/[^0-9]/g, '');
+  });
 
   /*============================
   =========== Show user
@@ -59,7 +67,7 @@ $( document ).ready( function( $ ) {
   =========== Delete user
   ==============================
   */
-  function deleteStudent(e){
+  function deleteUser(e){
 
       var formData = new FormData();
 
@@ -118,11 +126,11 @@ $( document ).ready( function( $ ) {
         data       : formData,
         success    : function ( data )
         {
-           $('#preloader').hide();
+          $('#preloader').hide();
           if (data == 'success') {
             window.location.reload();
           }else{
-            console.log('Please try again' + data);
+            alert("Operation failed! Try again!");
           }
 
          }
@@ -135,19 +143,13 @@ $( document ).ready( function( $ ) {
   */
   $(document).delegate( "#courseList tbody tr", "click", function(e) {
     const courseID = $(this).attr("val");
-
-    console.log(courseID);
     showSubject(courseID, e);
-
   });
 
 
   $(document).delegate( "#cityList tbody tr", "click", function(e) {
     const cityID = $(this).attr("val");
-
-    console.log(cityID);
     showCity(cityID, e);
-
   });
 
 
@@ -185,22 +187,22 @@ $( document ).ready( function( $ ) {
 
   $(document).delegate( "#delete_course", "click", function(e) {
     e.preventDefault();
-
-    $('#preloader').show();
-    $.ajax({
-      url: 'admin/course.php',
-      type: 'post',
-      data: {delCourseGetByCnme: $('#delete_course').attr('val')},
-      success: function(response){ 
+    if(confirm("Are you sure you want to delete this?")){ 
+      $('#preloader').show();
+      $.ajax({
+        url: 'admin/course.php',
+        type: 'post',
+        data: {delCourseGetByCnme: $('#delete_course').attr('val')},
+        success: function(response){ 
           $('#preloader').hide();
           if (response == 'success') {
             window.location.reload();
           }else{
-            console.log('Please try again' + response);
+            alert("Operation failed! Try again!");
           }
-      }
-    });
-
+        }
+      });
+    }
   }); 
 
 //insert subject
@@ -216,14 +218,14 @@ $( document ).ready( function( $ ) {
     updateCity('update', e);
   });  
   $('#cityModel').delegate( "#deletButton", "click", function(e) { 
-    updateCity('delete', e);
+    if(confirm("Are you sure you want to delete this?")){ updateCity('delete', e); }
   });  
 
   $('#subjectModel').delegate( "#submitButton", "click", function(e) { 
     updateSubject('update', e);
   });
   $('#subjectModel').delegate( "#deletButton", "click", function(e) { 
-    updateSubject('delete', e)
+    if(confirm("Are you sure you want to delete this?")){ updateSubject('delete', e); }
   });
 
   $('#subjectModel, #addSubjectModel').delegate( "#subject_code, #add_subject_code", "keyup", function(e) { 
@@ -239,38 +241,36 @@ $( document ).ready( function( $ ) {
 
 
   /*============================
-  =========== City Model
+  =========== functions
   ==============================
   */
+  function showSubject(id, e){
+    $('#preloader').show();
+    $.ajax({
+      url: 'admin/course.php',
+      type: 'post',
+      data: {courseListByID: id},
+      success: function(response){ 
+        $('#preloader').hide();
+        $('#subjectModel .modal-body').html(response);
+        $('#subjectModel').modal('show'); 
+      }
+    });
+  }
 
-
-function showSubject(id, e){
-  $('#preloader').show();
-  $.ajax({
-    url: 'admin/course.php',
-    type: 'post',
-    data: {courseListByID: id},
-    success: function(response){ 
-      $('#preloader').hide();
-      $('#subjectModel .modal-body').html(response);
-      $('#subjectModel').modal('show'); 
-    }
-  });
-}
-
-function showCity(id, e){
-  $('#preloader').show();
-  $.ajax({
-    url: 'admin/course.php',
-    type: 'post',
-    data: {cityListByID: id},
-    success: function(response){ 
-      $('#preloader').hide();
-      $('#cityModel .modal-body').html(response);
-      $('#cityModel').modal('show'); 
-    }
-  });
-}
+  function showCity(id, e){
+    $('#preloader').show();
+    $.ajax({
+      url: 'admin/course.php',
+      type: 'post',
+      data: {cityListByID: id},
+      success: function(response){ 
+        $('#preloader').hide();
+        $('#cityModel .modal-body').html(response);
+        $('#cityModel').modal('show'); 
+      }
+    });
+  }
 
   function insertCity(e){
      $('#preloader').show();
@@ -295,7 +295,7 @@ function showCity(id, e){
           if (data == 'success') {
             window.location.reload();
           }else{
-            console.log('Please try again' + data);
+            alert("Operation failed! Try again!");
           }
 
          }
@@ -325,7 +325,7 @@ function showCity(id, e){
           if (data == 'success') {
             window.location.reload();
           }else{
-            console.log('Please try again' + data);
+            alert("Operation failed! Try again!");
           }
 
          }
@@ -358,7 +358,7 @@ function showCity(id, e){
           if (data == 'success') {
             window.location.reload();
           }else{
-            console.log('Please try again' + data);
+            alert("Operation failed! Try again!");
           }
 
          }
@@ -391,7 +391,7 @@ function showCity(id, e){
           if (data == 'success') {
             window.location.reload();
           }else{
-            console.log('Please try again' + data);
+            alert("Operation failed! Try again!");
           }
 
          }
@@ -423,7 +423,7 @@ function showCity(id, e){
           if (data == 'success') {
             window.location.reload();
           }else{
-            console.log('Please try again' + data);
+            alert("Operation failed! Try again!");
           }
 
          }
@@ -432,41 +432,119 @@ function showCity(id, e){
 
 
   function isExistAdmin(table, colm, data, el){
-  if (data=='') {
-    $(el).removeClass('is-valid').addClass('is-invalid');
-    return 0;
+    if (data=='') {
+      $(el).removeClass('is-valid').addClass('is-invalid');
+      return 0;
+    }
+    $('#preloader').show();
+    var formData = new FormData();
+    formData.append( 'header[table]', table );
+    formData.append( 'header[action]', 'isExist' );
+    formData.append( 'data[colm]', colm );
+    formData.append( 'data[val]', data );
+    $.ajax({
+      url        : 'admin/course.php',
+      type       : 'POST',
+      contentType: false,
+      cache      : false,
+      processData: false,
+      data       : formData,
+      success    : function ( data )
+      {
+         $('#preloader').hide();
+        if (data == 'success') {
+
+          $(el).removeClass('is-invalid').addClass('is-valid');
+
+        }else{
+         $(el).removeClass('is-valid').addClass('is-invalid');
+        }
+
+       }
+    });
   }
 
-      $('#preloader').show();
+//validate user
+  function isExistLogin(table, colm, data, el){
+    if (data=='') {
+      $(el).removeClass('is-valid').addClass('is-invalid');
+      return 0;
+    }
+    var formData = new FormData();
 
-      var formData = new FormData();
+    formData.append( 'header[table]', 'user' );
+    formData.append( 'header[action]', 'isUserExist' );
 
-      formData.append( 'header[table]', table );
-      formData.append( 'header[action]', 'isExist' );
+    formData.append( 'data[colm]', colm );
+    formData.append( 'data[val]', data );
 
-      formData.append( 'data[colm]', colm );
-      formData.append( 'data[val]', data );
+    $.ajax({
+      url        : 'ajax/validator.php',
+      type       : 'POST',
+      contentType: false,
+      cache      : false,
+      processData: false,
+      data       : formData,
+      success    : function ( data )
+      {
+        if (data == 'success') {
+          $(el).removeClass('is-invalid').addClass('is-valid');
+        }else{
+         $(el).removeClass('is-valid').addClass('is-invalid');
+        }
+      }
+    });
+  }
 
-      $.ajax({
-        url        : 'admin/course.php',
-        type       : 'POST',
-        contentType: false,
-        cache      : false,
-        processData: false,
-        data       : formData,
-        success    : function ( data )
-        {
-           $('#preloader').hide();
-          if (data == 'success') {
 
-            $(el).removeClass('is-invalid').addClass('is-valid');
+  function isExistuserEmail(table, colm, data){
+    if (data=='') {
+      $('#forget #forgetMessage').html('Password not sent.');
+      return 0;
+    }
+    var formData = new FormData();
 
-          }else{
-           $(el).removeClass('is-valid').addClass('is-invalid');
-          }
+    formData.append( 'header[table]', 'user' );
+    formData.append( 'header[action]', 'isUserEmailExist' );
 
-         }
-      });
+    formData.append( 'data[colm]', colm );
+    formData.append( 'data[val]', data );
+
+    $.ajax({
+      url        : 'ajax/validator.php',
+      type       : 'POST',
+      contentType: false,
+      cache      : false,
+      processData: false,
+      data       : formData,
+      success    : function ( data )
+      {
+        if (data == 'success') {
+          $('#forget #forgetMessage').html('Password sent! Check your email!');
+        }else{
+         $('#forget #forgetMessage').html('Password not sent.');
+        }
+      }
+    });
+  }
+
+  function validEmail(email, el) {
+    var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+    if(emailReg.test( email )){
+      $(el).removeClass('is-invalid').addClass('is-valid');
+    }else{
+      $(el).removeClass('is-valid').addClass('is-invalid');
+    }
+    return emailReg.test( email );
+  }
+  function validUsername(username, el) {
+    var usernameReg = /^[a-zA-Z0-9_.-]+$/;
+    if(usernameReg.test( username )){
+      $(el).removeClass('is-invalid').addClass('is-valid');
+    }else{
+      $(el).removeClass('is-valid').addClass('is-invalid');
+    }
+    return usernameReg.test( username );
   }
 
   

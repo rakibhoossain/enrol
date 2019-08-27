@@ -109,7 +109,11 @@ $( document ).ready( function( $ ) {
   $('#signup').delegate( "#signupusername", "keyup", function(e) { 
     if( validUsername($(this).val() ,this) ) isExistLogin('user', 'username', $(this).val(), this);
   });
+  $('#signup').delegate( "#signupphone", "keyup", function(e) { 
+    this.value = this.value.replace(/[^0-9]/g, '');
+  });
 
+//forget
   $('#forget').delegate( "#forget_req", "click", function(e) { 
     isExistuserEmail('user', 'email', $('#forgetemail').val() );
   });

@@ -6,7 +6,7 @@ $userid = 0;
 $subject = 'Choose...';
 $class = 'Choose...';
 
-$img= 'assets/images/thumb.jpg';
+$img= 'assets/images/thumb.png';
 
 
 if (isset($_POST['userid'])) {
