@@ -36,14 +36,16 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
-
-
-      </div>
+      <div class="modal-body"></div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <button type="button" id="submitButton" class="btn btn-primary">Update</button>
-        <button type="button" id="deletButton" class="btn btn-danger">Delete</button>
+        <?php
+          if(session_id() == '' || !isset($_SESSION)) { session_start(); }
+          if ($_SESSION['designation'] == 'admin' ) {
+            echo '<button type="button" id="deletButton" class="btn btn-danger">Delete</button>';
+          }
+        ?>
       </div>
     </div>
   </div>
