@@ -31,6 +31,6 @@ Live
 
 **LOGIN ACCOUNT**
 
-: *Username*: admin  
+: *Username*: root  
 : *Password*: admin
 > Navigate to dashboard to update user profile.
